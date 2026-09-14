@@ -31,7 +31,7 @@
 | ドメイン | jap-ser.com のサブドメイン（候補：baikyaku.jap-ser.com。別案 uru.jap-ser.com）。費用ゼロ・自動デプロイが条件 |
 | ホスティング | GitHub リポジトリ + Cloudflare Pages（無料）。GitHub Pages でも可だがCloudflareの方がカスタムドメイン・Functionsが楽 |
 | 問い合わせ着地 | 公式LINE と フォーム の両方を置く |
-| LINE | https://lin.ee/Fdtwg64 |
+| LINE | https://lin.ee/kzL45s6 |
 | 対象エリア | 金沢市・野々市市・白山市・津幡町・かほく市・能美市・小松市・羽咋市 |
 | 運用 | GitHub Actions で月1回自動（データ取得→集計→文章生成→ビルド→デプロイ） |
 | 文章生成 | Anthropic API（Claude）。町名ページの解説文・状況別ガイドの下書き |
@@ -46,7 +46,7 @@
 - 設立：平成元年1月25日
 - 免許：石川県知事（9）第2427号
 - 公式サイト：https://www.jap-ser.com/
-- 公式LINE：https://lin.ee/Fdtwg64
+- 公式LINE：https://lin.ee/kzL45s6
 - 事業：売買仲介・買取再販・賃貸管理・民泊運営（Weskii）
 - 強み（事実ベースのみ）：30年以上の地元運営、免許更新9回目、自社買取が可能
 

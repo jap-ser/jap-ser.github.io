@@ -19,7 +19,7 @@ export const COMPANY = {
   founded: '平成元年1月25日',
   license: '石川県知事（9）第2427号',
   website: 'https://www.jap-ser.com/',
-  line: 'https://lin.ee/Fdtwg64',
+  line: 'https://lin.ee/kzL45s6',
   business: '売買仲介・買取再販・賃貸管理・民泊運営（Weskii）',
 };
 
