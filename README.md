@@ -70,6 +70,8 @@
 - [x] 国交省 API 利用申請（2026-09-14 送信済み）→ 承認メールが jap-ser@outlook.jp に届いたら `karte\.env` に `MLIT_API_KEY=...`
 - [x] GitHub 組織 `jap-ser` とリポジトリ `jap-ser.github.io`（公開済み）
 - [ ] Googleフォームの作成と埋め込み（Formspree は使わない）
-- [ ] jap-ser.com のDNS管理者を確認 → CNAME `baikyaku` → `jap-ser.github.io`
-- [ ] Search Console / GA4（任意）
+- [x] Search Console 登録・所有権確認（HTMLファイル `public/google26c05ca144b0be6a.html`。消さない）、sitemap-index.xml 送信済み（2026-09-14）
+- [x] Googleビジネスプロフィール「金沢市不動産売却相談ナビ」のウェブサイトを https://jap-ser.github.io/ に変更（審査待ち）。同プロフィールの郵便番号 920-0811 は 920-8202 が正しい（未修正）
+- [ ] jap-ser.com のDNS（WADAX: wadax-sv.jp）に CNAME `baikyaku` → `jap-ser.github.io` を追加 → `public/CNAME` と `SITE.url`・`astro.config.mjs`・robots.txt を切替
+- [ ] GA4（任意）
 - [ ] 実績記録の初期データ（あれば）
