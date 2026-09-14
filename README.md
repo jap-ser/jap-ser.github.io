@@ -52,16 +52,22 @@
 
 - 国交省サイトのCSV（石川県・2021Q1〜2026Q1、取引価格＋成約価格・全種別）を `data/csv/` に取得し取り込み済み（13,171件、町名ページ567件、最新期 2026年第1四半期）
 - APIキーが届いたら `npm run data:fetch` に切り替える（CSV取り込みはつなぎ）
-- 解説文（data/text）は **未生成**。Claude Code CLI のログインが切れていたため（karte\claude-login.bat で再ログイン後に `npm run data:text`）
-- git 初期化・初回コミット済み。GitHub 組織 jap-ser ができたら remote を追加して push するだけ
+- 解説文（data/text）は全575件生成済み（Claude Code、数値検査済み）。Claude Code CLI のログインが切れたら karte\claude-login.bat で再ログイン
+- git 初期化済み。remote は https://github.com/jap-ser/jap-ser.github.io
+
+## 公開状況（2026-09-14 夜）
+
+- **公開中: https://jap-ser.github.io**（GitHub組織 jap-ser / リポジトリ jap-ser.github.io、Pagesのソースは GitHub Actions）
+- 国交省 不動産情報ライブラリ API 利用申請を送信済み（法人・担当 中橋康太・通知先 jap-ser@outlook.jp・5営業日目安）。承認メールが届いたら `karte\.env` に `MLIT_API_KEY=...` を追記 → `setup-monthly-task.bat` で月次タスク登録
+- 公式LINEは kzL45s6 に統一
+- 問い合わせフォームは Googleフォーム（康太さんのGoogleアカウント）を作成して埋め込む方針
 
 ## 康太さんにやってもらうこと（進捗）
 
-- [ ] **karte\claude-login.bat をダブルクリックして Claude Code に再ログイン**（解説文生成と、カルテのAI抽出の両方に必要）
-
-- [ ] 国交省 不動産情報ライブラリ API 利用申請（5営業日目安）→ 届いたら `karte\.env` に `MLIT_API_KEY=...`
-- [ ] GitHub 組織 `jap-ser` を作成（golfprime-nishiinter アカウントで）→ リポジトリ `jap-ser.github.io`（Public）
-- [ ] Formspree アカウント作成 → フォームIDを `src/config/site.ts` の `formspreeId` に
+- [x] Claude Code 再ログイン（2026-09-14 完了）
+- [x] 国交省 API 利用申請（2026-09-14 送信済み）→ 承認メールが jap-ser@outlook.jp に届いたら `karte\.env` に `MLIT_API_KEY=...`
+- [x] GitHub 組織 `jap-ser` とリポジトリ `jap-ser.github.io`（公開済み）
+- [ ] Googleフォームの作成と埋め込み（Formspree は使わない）
 - [ ] jap-ser.com のDNS管理者を確認 → CNAME `baikyaku` → `jap-ser.github.io`
 - [ ] Search Console / GA4（任意）
 - [ ] 実績記録の初期データ（あれば）
