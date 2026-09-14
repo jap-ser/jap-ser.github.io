@@ -70,7 +70,7 @@ const latestQ = t.quarterly?.filter((q) => q.land.count + q.house.count + q.cond
 
   {related.length > 0 && (
     <>
-      <h2>{c.name}の近くの町名の相場</h2>
+      <h2>{c.name}で取引の多い他の町名の相場</h2>
       <div class="chips">
         {related.map((r) => <a href={`/${c.key}/${r.slug}/`}>{r.name}</a>)}
         <a href={`/${c.key}/#towns`}>{c.name}のすべての町名 →</a>
