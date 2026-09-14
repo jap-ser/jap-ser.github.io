@@ -1,6 +1,7 @@
 ---
 import { SITE, COMPANY, ANALYTICS, CITIES } from '../config/site';
 import { isSample, agg } from '../lib/data';
+import ExitNudge from '../components/ExitNudge.astro';
 
 interface Props {
   title: string;
@@ -238,6 +239,7 @@ const orgLd = {
       <p class="note" style="margin-top:16px">© {COMPANY.name}</p>
     </div>
   </footer>
+  <ExitNudge />
   <div class="sticky-cta" aria-label="ご相談">
     <a class="btn line" href={COMPANY.line} rel="noopener">LINEで相談</a>
     <a class="btn tel" href={COMPANY.telLink}>電話する</a>

@@ -1,0 +1,78 @@
+---
+// 離脱しそうなときに1回だけ出す案内（PC: マウスが画面上端へ / スマホ: 60%スクロール後に一定時間、または戻る操作）
+// LINE・電話・フォームへ誘導。閉じたら同じ訪問中は出さない（sessionStorage）
+import { COMPANY } from '../config/site';
+---
+<div class="exit-nudge" id="exit-nudge" hidden role="dialog" aria-modal="true" aria-labelledby="exit-nudge-title">
+  <div class="en-backdrop" data-close></div>
+  <div class="en-box">
+    <button class="en-close" type="button" aria-label="閉じる" data-close>×</button>
+    <img src="/img/staff-consult.jpg" alt="" width="328" height="400" loading="lazy" />
+    <div class="en-body">
+      <b id="exit-nudge-title">相場の見方、分かりましたか？</b>
+      <p>「いくらで売れそうか」「買取ならいくらか」は、町名と種別を送っていただければ概算をお伝えできます。売るかどうか決めていなくても大丈夫です。</p>
+      <div class="en-btns">
+        <a class="btn line" href={COMPANY.line} rel="noopener">LINEで住所を送るだけ</a>
+        <a class="btn form" href="/contact/">査定フォーム（1分）</a>
+        <a class="btn tel" href={COMPANY.telLink}>{COMPANY.tel}</a>
+      </div>
+      <small>{COMPANY.hours}／写真はイメージです</small>
+    </div>
+  </div>
+</div>
+
+<style>
+  .exit-nudge { position: fixed; inset: 0; z-index: 50; display: flex; align-items: center; justify-content: center; padding: 16px; }
+  .exit-nudge[hidden] { display: none; }
+  .en-backdrop { position: absolute; inset: 0; background: rgba(20, 40, 35, .55); }
+  .en-box { position: relative; background: #fff; border-radius: 18px; max-width: 560px; width: 100%; display: grid; grid-template-columns: 150px 1fr; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.35); animation: en-in .25s ease-out; }
+  @keyframes en-in { from { transform: translateY(14px) scale(.98); opacity: 0; } }
+  .en-box img { width: 150px; height: 100%; object-fit: cover; }
+  .en-body { padding: 22px 20px 18px; }
+  .en-body b { display: block; font-family: var(--serif); font-size: 1.15rem; color: var(--ink); line-height: 1.4; margin-bottom: 8px; }
+  .en-body p { font-size: .9rem; color: var(--text); margin: 0 0 12px; line-height: 1.7; }
+  .en-btns { display: grid; gap: 8px; }
+  .en-btns .btn { padding: 11px 12px; font-size: .95rem; }
+  .en-body small { display: block; font-size: .72rem; color: var(--muted); margin-top: 8px; }
+  .en-close { position: absolute; top: 6px; right: 8px; background: none; border: none; font-size: 26px; line-height: 1; color: var(--muted); cursor: pointer; padding: 4px 8px; }
+  @media (max-width: 560px) { .en-box { grid-template-columns: 1fr; } .en-box img { width: 100%; height: 130px; object-position: 50% 20%; } }
+</style>
+
+<script>
+  const el = document.getElementById('exit-nudge');
+  if (el) {
+    const KEY = 'exitNudgeShown';
+    let shown = false;
+    try { shown = sessionStorage.getItem(KEY) === '1'; } catch {}
+    const isForm = location.pathname.startsWith('/contact');
+    const open = () => {
+      if (shown || isForm) return;
+      shown = true;
+      try { sessionStorage.setItem(KEY, '1'); } catch {}
+      el.hidden = false;
+      try { (window as any).gtag?.('event', 'popup_view', { page: location.pathname }); } catch {}
+    };
+    const close = () => { el.hidden = true; };
+    el.querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', close));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+    // PC: マウスが上端から出た（タブを閉じる・戻る動き）。ページ滞在5秒以降
+    const t0 = Date.now();
+    document.addEventListener('mouseout', (e) => {
+      if (!e.relatedTarget && e.clientY <= 0 && Date.now() - t0 > 5000) open();
+    });
+    // スマホ: 60%以上読んだあと、30秒経過で1回。または「戻る」操作
+    const mobile = matchMedia('(max-width: 719px)').matches;
+    if (mobile) {
+      let deep = false;
+      addEventListener('scroll', () => {
+        const h = document.documentElement;
+        if ((h.scrollTop + innerHeight) / h.scrollHeight > 0.6) deep = true;
+      }, { passive: true });
+      setTimeout(() => { if (deep) open(); }, 30000);
+      try {
+        history.pushState({ nudge: 1 }, '');
+        addEventListener('popstate', () => { if (!shown) { open(); history.pushState({ nudge: 1 }, ''); } });
+      } catch {}
+    }
+  }
+</script>
