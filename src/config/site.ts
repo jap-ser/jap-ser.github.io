@@ -32,7 +32,7 @@ export const FORM = {
 
 // 解析タグ。空なら出力しない
 export const ANALYTICS = {
-  ga4Id: '', // 例: 'G-XXXXXXXXXX'
+  ga4Id: 'G-29D3DP7W77', // GA4「ジャパンサービス 相場サイト」（プロパティID 554127940、アカウント js）
   searchConsoleMeta: '', // HTMLタグ方式の所有権確認コード（content属性の値）
 };
 
