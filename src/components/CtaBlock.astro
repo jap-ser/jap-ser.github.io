@@ -1,40 +1,51 @@
 ---
-// 「この町の物件、当社が直接買います」ブロック。仲介と買取の考え方を並べ、LINE／電話／フォームへ
-import { COMPANY, FORM } from '../config/site';
+// 「この町の物件、当社が直接買います」ブロック。仲介と買取の考え方を並べ、短いフォーム／LINE／電話へ
+import { COMPANY } from '../config/site';
+import LeadForm from './LeadForm.astro';
 import { tsubo, yen, type Summary } from '../lib/data';
 
-interface Props { areaName: string; summary?: Summary }
-const { areaName, summary } = Astro.props;
+interface Props { areaName: string; summary?: Summary; city?: string }
+const { areaName, summary, city = '' } = Astro.props;
 const land = summary?.land?.y3;
 const house = summary?.house?.y3;
 ---
 <section class="cta" id="soudan">
-  <h2>{areaName}の物件、当社が直接買い取ります（仲介もできます）</h2>
-  <p>相場を見たうえで、「時間をかけても高く」なら仲介、「早く・手間なく」なら当社買取。どちらが合うかは物件と事情で変わります。両方の見込みを並べてご説明しますので、比べてお選びください。</p>
-  <div class="compare">
-    <div class="card">
-      <h3>仲介で売る</h3>
-      <ul>
-        <li>目安：{land?.count ? `土地の直近3年中央値は ${tsubo(land.medianTsubo)}` : '町名ページの相場表'}{house?.count ? `、戸建は ${yen(house.medianPrice)}` : ''}（実際の査定は個別要因で変わります）</li>
-        <li>買主を広く探すので、時間はかかるが高値を狙える</li>
-        <li>内覧対応・片付け・修繕が必要になることがある</li>
-        <li>成約時に仲介手数料がかかる</li>
-      </ul>
+  <div class="cta-grid">
+    <div>
+      <span class="eyebrow">ご相談・査定は無料</span>
+      <h2>{areaName}の物件、当社が直接買い取ります（仲介もできます）</h2>
+      <p>相場を見たうえで、「時間をかけても高く」なら仲介、「早く・手間なく」なら当社買取。どちらが合うかは物件と事情で変わります。両方の見込みを並べてご説明しますので、比べてお選びください。</p>
+      <div class="compare">
+        <div class="card">
+          <h3>仲介で売る</h3>
+          <ul>
+            <li>目安：{land?.count ? `土地の直近3年中央値は ${tsubo(land.medianTsubo)}` : '町名ページの相場表'}{house?.count ? `、戸建は ${yen(house.medianPrice)}` : ''}（実際の査定は個別要因で変わります）</li>
+            <li>買主を広く探すので、時間はかかるが高値を狙える</li>
+            <li>内覧対応・片付け・修繕が必要になることがある</li>
+            <li>成約時に仲介手数料がかかる</li>
+          </ul>
+        </div>
+        <div class="card hi">
+          <h3>当社が買い取る</h3>
+          <ul>
+            <li>価格は査定・物件確認のうえでご提示（相場より低くなるのが一般的です）</li>
+            <li>買主探しが不要。現状のまま、家財が残っていても相談可</li>
+            <li>仲介手数料は仲介と同様にかかります。引渡し時期をご事情に合わせやすい</li>
+            <li>広告・内覧がないので、近隣に知られずに進めたい場合にも向く</li>
+          </ul>
+        </div>
+      </div>
+      <div class="cta-photo">
+        <img src="/img/staff-consult.jpg" alt="" loading="lazy" width="328" height="400" />
+        <p>所在地（町名まで）・種別・おおよその面積が分かれば概算をお伝えできます。売るかどうか決めていない段階のご相談も歓迎です。<br /><span class="note">営業時間：{COMPANY.hours}／写真はイメージです</span></p>
+      </div>
+      <div class="btns">
+        <a class="btn line" href={COMPANY.line} rel="noopener">LINEで物件情報を送る</a>
+        <a class="btn tel" href={COMPANY.telLink}>電話で相談（{COMPANY.tel}）</a>
+      </div>
     </div>
-    <div class="card">
-      <h3>当社が買い取る</h3>
-      <ul>
-        <li>価格は査定・物件確認のうえでご提示（相場より低くなるのが一般的です）</li>
-        <li>買主探しが不要。現状のまま、家財が残っていても相談可</li>
-        <li>仲介手数料なし。引渡し時期をご事情に合わせやすい</li>
-        <li>近隣に知られずに進めたい場合にも向く</li>
-      </ul>
+    <div>
+      <LeadForm variant="compact" city={city} title={`${areaName}の相場と買取の目安を聞く（無料）`} />
     </div>
   </div>
-  <div class="btns" style="margin-top:16px">
-    <a class="btn line" href={COMPANY.line} rel="noopener">LINEで物件情報を送る</a>
-    <a class="btn tel" href={COMPANY.telLink}>電話で相談（{COMPANY.tel}）</a>
-    {FORM.formspreeId && <a class="btn form" href="/contact/">フォームで相談</a>}
-  </div>
-  <p class="note">所在地（町名まで）・種別・おおよその面積が分かれば概算をお伝えできます。売るかどうか決めていない段階のご相談も歓迎です。営業時間：{COMPANY.hours}</p>
 </section>

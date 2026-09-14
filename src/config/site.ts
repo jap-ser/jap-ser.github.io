@@ -23,9 +23,11 @@ export const COMPANY = {
   business: '売買仲介・買取再販・賃貸管理・民泊運営（Weskii）',
 };
 
-// 問い合わせフォーム（Formspree）。IDが空の間はフォームを出さず、LINE・電話のみ表示する
+// 問い合わせフォームの送信先。買取LP（karte\kaitori-lp）と同じ Google Apps Script「買取LP 査定フォーム受付」。
+// 受信内容はスプレッドシート「買取LP 査定依頼」に1行追記され、kota0206h7@gmail.com と jap-ser@outlook.jp にメール通知が届く。
+// 空にするとフォームは「入力内容をコピーしてLINEへ」の動きになる
 export const FORM = {
-  formspreeId: '', // 例: 'xabcdefg' → https://formspree.io/f/xabcdefg
+  endpoint: 'https://script.google.com/macros/s/AKfycbze4WUc7JxkAOtDUk3HdGSvBujfpt23zY3w5bjJCJ1-vm5B3Nbeaxu_fnj4wW87HB1y/exec',
 };
 
 // 解析タグ。空なら出力しない

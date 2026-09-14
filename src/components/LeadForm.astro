@@ -1,0 +1,168 @@
+---
+// 査定・相談フォーム。買取LPと同じ Google Apps Script に JSON を送る（列名も同じ）
+// variant: 'compact'（ヒーロー・町名ページ用の短い版） | 'full'（/contact/ 用）
+import { COMPANY, FORM, CITIES } from '../config/site';
+
+interface Props { variant?: 'compact' | 'full'; city?: string; title?: string; note?: string }
+const { variant = 'compact', city = '', title = 'まずは相場と買取の目安を確認（無料）', note = '' } = Astro.props;
+const full = variant === 'full';
+const uid = `lf-${Math.random().toString(36).slice(2, 8)}`;
+const TYPES = ['戸建（一戸建て）', '土地・古家付き土地', 'マンション', 'アパート・収益物件', '倉庫・店舗・事業用', 'その他・わからない'];
+const CITY_OPTS = [...CITIES.map((c) => c.name), '内灘町', '加賀市', '七尾市', '石川県内その他', '石川県外'];
+const WISH = ['買取と仲介の両方の価格を見たい', 'まずは相場・概算だけ知りたい', '年内に引渡しを終えたい（買取）', '片付けずにそのまま手放したい（買取）', '周囲に知られずに売りたい（買取）'];
+const STATUS = ['空き家になっている', '相続した・相続予定', '自分が住んでいる', '人に貸している', '遠方に住んでいて管理できない', 'その他'];
+const AGE = ['わからない・該当なし', '10年未満', '10〜20年', '20〜30年', '30〜40年', '40〜50年', '50年以上'];
+const WHEN = ['未定', '年内（12月まで）', '3か月以内', '半年以内', '1年以内'];
+---
+<div class="lead-form" id={uid} data-endpoint={FORM.endpoint} data-line={COMPANY.line}>
+  <div class="lf-head"><b>{title}</b><span>入力1分。しつこい営業はしません</span></div>
+  <form class="lf-body" novalidate>
+    <input type="text" name="website" class="lf-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+    <label class="lf-field"><span>物件の種類 <em>必須</em></span>
+      <select name="種別" required>
+        <option value="">選んでください</option>
+        {TYPES.map((t) => <option>{t}</option>)}
+      </select>
+    </label>
+    <label class="lf-field"><span>市区町村 <em>必須</em></span>
+      <select name="市区町村" required>
+        <option value="">選んでください</option>
+        {CITY_OPTS.map((c) => <option selected={c === city}>{c}</option>)}
+      </select>
+    </label>
+    {full && (
+      <label class="lf-field"><span>町名・住所（分かる範囲で）</span><input name="住所" placeholder="例：西都2丁目" /></label>
+    )}
+    {full && (
+      <label class="lf-field"><span>今の状況</span>
+        <select name="状況"><option value="">選んでください</option>{STATUS.map((s) => <option>{s}</option>)}</select>
+      </label>
+    )}
+    {full && (
+      <label class="lf-field"><span>築年数（建物がある場合）</span>
+        <select name="築年数">{AGE.map((a, i) => <option value={i === 0 ? '' : a}>{a}</option>)}</select>
+      </label>
+    )}
+    <label class="lf-field"><span>ご希望</span>
+      <select name="ご希望"><option value="">選んでください</option>{WISH.map((w) => <option>{w}</option>)}</select>
+    </label>
+    {full && (
+      <label class="lf-field"><span>売却の時期</span>
+        <select name="時期">{WHEN.map((w, i) => <option value={i === 0 ? '' : w}>{w}</option>)}</select>
+      </label>
+    )}
+    <div class="lf-row">
+      <label class="lf-field"><span>お名前 <em>必須</em></span><input name="お名前" required autocomplete="name" /></label>
+      <label class="lf-field"><span>電話番号 <em>必須</em></span><input name="電話" type="tel" required autocomplete="tel" inputmode="tel" placeholder="090-0000-0000" /></label>
+    </div>
+    {full && (
+      <label class="lf-field"><span>メールアドレス（任意）</span><input name="メール" type="email" autocomplete="email" /></label>
+    )}
+    {full && (
+      <div class="lf-field"><span>ご希望の連絡方法</span>
+        <div class="lf-choices">
+          {['電話', 'LINE', 'メール'].map((c, i) => <label><input type="radio" name="連絡方法" value={c} checked={i === 0} /> {c}</label>)}
+        </div>
+      </div>
+    )}
+    {full && (
+      <label class="lf-field"><span>ご質問・ご事情（任意）</span><textarea name="備考" rows="4"></textarea></label>
+    )}
+    <p class="lf-err" hidden>必須の項目を入力してください</p>
+    <button type="submit" class="lf-submit">相場と買取の目安を聞く（無料）</button>
+    <p class="lf-note">{note || '査定・物件確認のうえでご提示します。売るかどうか決めていなくても構いません。'}<br />送信内容は<a href="/privacy/">プライバシーポリシー</a>に基づき、ご相談への回答にのみ使います。</p>
+    <div class="lf-or">または</div>
+    <a class="btn line lf-line" href={COMPANY.line} rel="noopener">LINEで住所を送るだけ</a>
+  </form>
+  <div class="lf-done" hidden>
+    <b class="lf-done-title">送信ありがとうございます</b>
+    <p class="lf-done-msg">営業時間内（{COMPANY.hours}）に、担当からご連絡します。お急ぎの方はお電話ください。</p>
+    <pre class="lf-summary"></pre>
+    <div class="btns"><a class="btn line" href={COMPANY.line} rel="noopener">LINEで続きを相談</a><a class="btn tel" href={COMPANY.telLink}>{COMPANY.tel}</a></div>
+  </div>
+</div>
+
+<style>
+  .lead-form { background: #fff; border: 1px solid var(--rule); border-radius: 18px; overflow: hidden; box-shadow: 0 10px 34px rgba(20, 50, 40, .10); }
+  .lf-head { background: var(--ink); color: #fff; padding: 14px 18px; }
+  .lf-head b { font-family: var(--serif); font-size: 1.05rem; display: block; line-height: 1.4; }
+  .lf-head span { font-size: .78rem; opacity: .85; }
+  .lf-body { padding: 16px 18px 18px; display: grid; gap: 12px; }
+  .lf-body[hidden], .lf-done[hidden] { display: none; }
+  .lf-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  .lf-field { display: grid; gap: 4px; font-size: .9rem; }
+  .lf-field > span { font-weight: 600; color: var(--text); }
+  .lf-field em { font-style: normal; font-size: .7rem; color: #fff; background: var(--cta); border-radius: 4px; padding: 1px 6px; margin-left: 6px; vertical-align: 1px; }
+  .lf-field input, .lf-field select, .lf-field textarea { width: 100%; font: inherit; font-size: 16px; padding: 10px 12px; border: 1px solid var(--rule); border-radius: 10px; background: #fff; color: var(--text); }
+  .lf-field input:focus, .lf-field select:focus, .lf-field textarea:focus { outline: 2px solid var(--brand); outline-offset: 1px; border-color: var(--brand); }
+  .lf-field.invalid input, .lf-field.invalid select { border-color: var(--cta); background: #fff6f2; }
+  .lf-row { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
+  .lf-choices { display: flex; gap: 14px; flex-wrap: wrap; font-weight: 400; }
+  .lf-err { color: var(--cta); font-size: .85rem; margin: 0; }
+  .lf-submit { font: inherit; font-weight: 800; font-size: 1.05rem; color: #fff; background: var(--cta); border: none; border-radius: 12px; padding: 15px 18px; cursor: pointer; box-shadow: 0 6px 18px rgba(234, 90, 42, .3); transition: transform .15s, filter .15s; }
+  .lf-submit:hover { transform: translateY(-1px); filter: brightness(1.05); }
+  .lf-submit[disabled] { opacity: .7; cursor: default; }
+  .lf-note { font-size: .75rem; color: var(--muted); margin: 0; line-height: 1.6; }
+  .lf-or { text-align: center; font-size: .78rem; color: var(--muted); }
+  .lf-line { display: block; }
+  .lf-done { padding: 22px 18px; text-align: center; }
+  .lf-done b { font-family: var(--serif); font-size: 1.15rem; display: block; margin-bottom: 8px; }
+  .lf-summary { text-align: left; white-space: pre-wrap; font-size: .82rem; background: var(--mist); border-radius: 10px; padding: 10px 12px; max-height: 180px; overflow: auto; }
+  .lf-summary:empty { display: none; }
+  @media (max-width: 480px) { .lf-row { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  // 全フォーム共通の送信処理（Astroはこのscriptをページ内で1回だけ実行する）
+  const forms = document.querySelectorAll<HTMLElement>('.lead-form');
+  forms.forEach((wrap) => {
+    const form = wrap.querySelector('form')!;
+    const endpoint = wrap.dataset.endpoint || '';
+    const line = wrap.dataset.line || '';
+    const done = wrap.querySelector<HTMLElement>('.lf-done')!;
+    form.addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      let ok = true;
+      form.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[required]').forEach((el) => {
+        const bad = !el.value.trim();
+        el.closest('.lf-field')?.classList.toggle('invalid', bad);
+        if (bad) ok = false;
+      });
+      const err = form.querySelector<HTMLElement>('.lf-err')!;
+      err.hidden = ok;
+      if (!ok) return;
+      const fd = new FormData(form);
+      if (String(fd.get('website') || '')) { showDone(true, []); return; } // スパム（隠し欄に入力）
+      const keys = ['種別', '市区町村', '住所', '状況', '築年数', 'ご希望', '時期', 'お名前', '電話', 'メール', '連絡方法', '備考'];
+      const data: Record<string, string> = {};
+      for (const k of keys) data[k] = String(fd.get(k) || '');
+      data['送信日時'] = new Date().toLocaleString('ja-JP');
+      data['ページ'] = location.href;
+      const lines = keys.filter((k) => data[k]).map((k) => `${k}：${data[k]}`);
+      const btn = form.querySelector<HTMLButtonElement>('.lf-submit')!;
+      btn.disabled = true; btn.textContent = '送信中…';
+      try {
+        (window as any).gtag?.('event', 'form_submit', { page: location.pathname });
+      } catch {}
+      if (!endpoint) { showDone(false, lines); return; }
+      try {
+        // Apps Script 宛は text/plain で送る（application/json だとブラウザの事前確認で失敗する）
+        const r = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(data), redirect: 'follow' });
+        const j = await r.json();
+        showDone(!!(j && j.ok), lines);
+      } catch {
+        showDone(false, lines);
+      }
+    });
+    function showDone(sent: boolean, lines: string[]) {
+      form.hidden = true; done.hidden = false;
+      if (!sent) {
+        done.querySelector('.lf-done-title')!.textContent = '入力ありがとうございます';
+        done.querySelector('.lf-done-msg')!.textContent = '通信の都合で送信できませんでした。下の内容をコピーしましたので、LINEを開いて貼り付けて送ってください（お電話でも受け付けます）。';
+        done.querySelector('.lf-summary')!.textContent = lines.join('\n');
+        try { navigator.clipboard.writeText(lines.join('\n')); } catch {}
+      }
+      done.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  });
+</script>

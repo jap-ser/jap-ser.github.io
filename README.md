@@ -60,7 +60,9 @@
 - **公開中: https://jap-ser.github.io**（GitHub組織 jap-ser / リポジトリ jap-ser.github.io、Pagesのソースは GitHub Actions）
 - 国交省 不動産情報ライブラリ API 利用申請を送信済み（法人・担当 中橋康太・通知先 jap-ser@outlook.jp・5営業日目安）。承認メールが届いたら `karte\.env` に `MLIT_API_KEY=...` を追記 → `setup-monthly-task.bat` で月次タスク登録
 - 公式LINEは kzL45s6 に統一
-- 問い合わせフォームは Googleフォーム（康太さんのGoogleアカウント）を作成して埋め込む方針
+- 問い合わせフォームは買取LPと同じ Google Apps Script（`src/config/site.ts` の `FORM.endpoint`）に送信。受信はスプレッドシート「買取LP 査定依頼」＋メール通知（kota0206h7@gmail.com / jap-ser@outlook.jp）。「ページ」列のURLで相場サイト発かLP発かが分かる。メール件名は Apps Script 側の固定文言（【買取LP】）
+- 写真は買取LPに埋め込まれていたもの（AI生成のイメージ写真）を `public/img/` に再利用。各所に「写真はイメージです」を表示
+- 当社買取でも仲介手数料はかかる（康太さん指示 2026-09-14）。「仲介手数料なし」とは書かない
 
 ## 康太さんにやってもらうこと（進捗）
 
