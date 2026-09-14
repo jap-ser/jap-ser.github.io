@@ -48,7 +48,16 @@
 - 町名ページを作る最低件数（既定3件/3年）：`scripts/aggregate.mjs` の `MIN_TOWN_3Y`
 - ガイド記事：`src/content/guide/*.md`。本人が目視したら frontmatter の `reviewed: true` にする（それまで noindex）
 
+## データの現状（2026-09-14）
+
+- 国交省サイトのCSV（石川県・2021Q1〜2026Q1、取引価格＋成約価格・全種別）を `data/csv/` に取得し取り込み済み（13,171件、町名ページ567件、最新期 2026年第1四半期）
+- APIキーが届いたら `npm run data:fetch` に切り替える（CSV取り込みはつなぎ）
+- 解説文（data/text）は **未生成**。Claude Code CLI のログインが切れていたため（karteclaude-login.bat で再ログイン後に `npm run data:text`）
+- git 初期化・初回コミット済み。GitHub 組織 jap-ser ができたら remote を追加して push するだけ
+
 ## 康太さんにやってもらうこと（進捗）
+
+- [ ] **karteclaude-login.bat をダブルクリックして Claude Code に再ログイン**（解説文生成と、カルテのAI抽出の両方に必要）
 
 - [ ] 国交省 不動産情報ライブラリ API 利用申請（5営業日目安）→ 届いたら `karte\.env` に `MLIT_API_KEY=...`
 - [ ] GitHub 組織 `jap-ser` を作成（golfprime-nishiinter アカウントで）→ リポジトリ `jap-ser.github.io`（Public）
