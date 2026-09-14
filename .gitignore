@@ -1,0 +1,13 @@
+# build output
+dist/
+.astro/
+node_modules/
+npm-debug.log*
+# environment
+.env
+.env.*
+# 生データは大きいのでコミットしない（aggregated.json と text/ はコミットする）
+data/raw/
+logs/
+.DS_Store
+data/csv/

@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import CtaBlock from '../components/CtaBlock.astro';
+import { results } from '../lib/data';
+import { breadcrumbLd } from '../lib/seo';
+const crumbs = [{ name: 'トップ', href: '/' }, { name: '実績記録', href: '/results/' }];
+const items = [...results].sort((a, b) => b.date.localeCompare(a.date));
+const desc = 'ジャパンサービスの買取・仲介の実績記録。金沢市・野々市市・白山市など石川県内での売却・買取・引渡しの記録を、個人が特定されない範囲で掲載しています。';
+---
+<Base title="買取・仲介の実績記録" description={desc} path="/results/" jsonLd={[breadcrumbLd(crumbs)]}>
+  <Breadcrumb items={crumbs} />
+  <h1>買取・仲介の実績記録</h1>
+  <p class="lead">当社が実際に扱った案件の記録です。個人や物件が特定されないよう、市町と種別、ひとことだけを載せています。架空の事例や「お客様の声」は掲載しません。</p>
+  {items.length === 0 ? (
+    <p class="card">準備中です。掲載可能な案件から順に追加していきます。</p>
+  ) : (
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>年月</th><th>エリア</th><th>種別</th><th>区分</th><th>内容</th></tr></thead>
+        <tbody>
+          {items.map((r) => (
+            <tr><td class="num">{r.date.slice(0, 7).replace('-', '年')}月</td><td>{r.city}</td><td>{r.type}</td><td>{r.kind}</td><td>{r.note}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  )}
+  <CtaBlock areaName="金沢・石川" />
+</Base>

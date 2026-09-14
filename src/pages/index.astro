@@ -1,0 +1,87 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaBlock from '../components/CtaBlock.astro';
+import { SITE, COMPANY, CITIES } from '../config/site';
+import { agg, cityList, townsWithPage, tsubo, yen, results } from '../lib/data';
+
+const cities = cityList();
+const kanazawa = agg.cities.kanazawa;
+const totalPages = cities.reduce((a, c) => a + c.pageCount, 0);
+const desc = SITE.description;
+---
+<Base title="トップ" description={desc} path="/">
+  <h1>金沢・石川の町名別 不動産相場と、売却・買取のご相談</h1>
+  <p class="lead">国土交通省が公表する実際の取引データを町名ごとに集計し、毎月更新しています。相場を確かめたうえで、「仲介で高く売る」か「当社に直接売って早く終える」かを、比べて選んでいただくためのサイトです。運営：{COMPANY.name}（{COMPANY.license}）</p>
+
+  <div class="kpi">
+    <div><b>{cities.length}市町</b><span>対象エリア</span></div>
+    <div><b>{totalPages}町名</b><span>相場ページ数</span></div>
+    <div><b>{agg.totalRecords.toLocaleString('ja-JP')}件</b><span>集計した取引データ（直近5年）</span></div>
+    <div><b>{agg.latestPeriodLabel}</b><span>最新データ期</span></div>
+  </div>
+
+  <h2 id="areas">エリアから相場を見る</h2>
+  <div class="grid">
+    {cities.map((c) => (
+      <div class="card">
+        <h3><a href={`/${c.key}/`}>{c.name}の不動産相場</a></h3>
+        <div class="kv">
+          土地 中央値：{c.summary.land.y3.count ? tsubo(c.summary.land.y3.medianTsubo) : '—'}<br />
+          戸建 中央値：{c.summary.house.y3.count ? yen(c.summary.house.y3.medianPrice) : '—'}<br />
+          町名ページ：{c.pageCount}件
+        </div>
+      </div>
+    ))}
+  </div>
+  <p class="note">中央値は直近3年（{agg.windowY3}）。詳しい表と推移は各エリアのページへ。</p>
+
+  {kanazawa && kanazawa.pageCount > 0 && (
+    <>
+      <h3>金沢市で取引の多い町名</h3>
+      <div class="chips">
+        {townsWithPage(kanazawa).slice(0, 24).map((t) => <a href={`/kanazawa/${t.slug}/`}>{t.name}</a>)}
+      </div>
+      <p class="small"><a href="/kanazawa/">金沢市のすべての町名を見る →</a></p>
+    </>
+  )}
+
+  <h2>こんなときにご相談ください</h2>
+  <div class="grid">
+    <div class="card"><h3><a href="/guide/souzoku/">相続した家・土地を売りたい</a></h3><div class="kv">名義変更や税金の順番、空き家のままにしないための進め方</div></div>
+    <div class="card"><h3><a href="/guide/akiya/">空き家を持て余している</a></h3><div class="kv">管理の負担、固定資産税、そのまま売れるかどうか</div></div>
+    <div class="card"><h3><a href="/guide/sumikae/">住み替えたい</a></h3><div class="kv">先に売るか先に買うか、資金のつなぎ方</div></div>
+    <div class="card"><h3><a href="/guide/enpou/">遠方に住んでいて動けない</a></h3><div class="kv">現地に来なくても進められる方法</div></div>
+    <div class="card"><h3><a href="/guide/loan-zandaka/">住宅ローンが残っている</a></h3><div class="kv">残債と売却額の関係、金融機関との調整</div></div>
+    <div class="card"><h3><a href="/guide/">その他の状況別ガイド →</a></h3><div class="kv">離婚・施設入所・土地の分け方・古い家の扱いなど</div></div>
+  </div>
+
+  <h2>仲介と当社買取、どちらが合うか</h2>
+  <div class="compare">
+    <div class="card">
+      <h3>仲介（時間をかけて高く）</h3>
+      <ul>
+        <li>市場で買主を探すので、相場に近い価格を狙える</li>
+        <li>売れるまでの期間は読みにくい（数か月〜）</li>
+        <li>内覧・片付け・修繕、成約時の仲介手数料が必要</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>当社買取（早く・手間なく）</h3>
+      <ul>
+        <li>価格は査定・物件確認のうえでご提示。相場より低くなるのが一般的</li>
+        <li>買主探しが不要で、引渡し時期を合わせやすい</li>
+        <li>現状のまま・家財が残っていても相談可。仲介手数料なし</li>
+      </ul>
+    </div>
+  </div>
+  <p><a href="/kaitori/">仲介と買取の違いを詳しく見る →</a></p>
+
+  <h2>当社について</h2>
+  <p>{COMPANY.name}は{COMPANY.founded}設立、金沢市西都で30年以上、売買仲介と自社買取・再販、賃貸管理を続けてきた地元の不動産会社です。免許は{COMPANY.license}（更新9回目）。代表の{COMPANY.rep}が査定からお引渡しまで責任をもって担当します。</p>
+  <p><a href="/company/">会社概要・代表紹介 →</a>　<a href="/results/">最近の実績記録 →</a>{results.length === 0 && <span class="note">（実績記録は準備中）</span>}</p>
+
+  <CtaBlock areaName="金沢・石川" />
+
+  <h2>相場データについて</h2>
+  <p class="small">本サイトの相場は、国土交通省「不動産情報ライブラリ」の不動産取引価格情報（取引当事者へのアンケートに基づく取引価格、およびレインズの成約価格）を、当社が町名・種別ごとに集計したものです。個々の取引が特定できないよう町名単位までの集計とし、中央値を代表値としています。実際の売却価格は、面積・形状・接道・建物の状態・時期などの個別要因で変わります。詳しくは各ページの注記をご覧ください。</p>
+</Base>

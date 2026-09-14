@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import CtaBlock from '../components/CtaBlock.astro';
+import { COMPANY } from '../config/site';
+import { breadcrumbLd } from '../lib/seo';
+const crumbs = [{ name: 'トップ', href: '/' }, { name: '会社概要', href: '/company/' }];
+const desc = `${COMPANY.name}の会社概要。${COMPANY.founded}設立、${COMPANY.license}。金沢市西都で売買仲介・買取再販・賃貸管理を行う地元の不動産会社です。`;
+---
+<Base title="会社概要・代表紹介" description={desc} path="/company/" jsonLd={[breadcrumbLd(crumbs)]}>
+  <Breadcrumb items={crumbs} />
+  <h1>会社概要・代表紹介</h1>
+  <div class="table-wrap">
+    <table>
+      <tbody>
+        <tr><th>商号</th><td>{COMPANY.name}</td></tr>
+        <tr><th>代表者</th><td>{COMPANY.rep}</td></tr>
+        <tr><th>所在地</th><td>{COMPANY.address}</td></tr>
+        <tr><th>電話</th><td><a href={COMPANY.telLink}>{COMPANY.tel}</a>（{COMPANY.hours}）</td></tr>
+        <tr><th>設立</th><td>{COMPANY.founded}</td></tr>
+        <tr><th>宅地建物取引業免許</th><td>{COMPANY.license}</td></tr>
+        <tr><th>事業内容</th><td>{COMPANY.business}</td></tr>
+        <tr><th>公式サイト</th><td><a href={COMPANY.website} rel="noopener">{COMPANY.website}</a></td></tr>
+        <tr><th>公式LINE</th><td><a href={COMPANY.line} rel="noopener">友だち追加はこちら</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>代表からのごあいさつ</h2>
+  <div class="prose">
+    <p>{COMPANY.name}は{COMPANY.founded}の設立以来、金沢市西都を拠点に、売買の仲介と自社での買取・再販、賃貸管理を続けてきました。免許は更新9回目になります。</p>
+    <p>このサイトを作ったのは、「相場を知ったうえで、納得して売り方を選んでほしい」からです。相場は国土交通省のデータで誰でも確認できるものですし、隠して安く買うようなやり方は、長く地元で商売をしている当社の考えと合いません。仲介と買取の両方を扱う会社として、どちらの見込みも並べてお伝えし、選ぶのはお客様、という進め方を大切にしています。</p>
+    <p>売るかどうか決めていない段階でも、相続や住み替えの相談だけでも構いません。町名と種別が分かればおおよそのお話ができますので、LINEかお電話でお気軽にどうぞ。</p>
+    <p style="text-align:right">代表 {COMPANY.rep}</p>
+  </div>
+
+  <h2>アクセス</h2>
+  <p>{COMPANY.address}。お車でお越しの際は事前にご連絡ください。ご自宅や現地へお伺いすることもできます。</p>
+
+  <CtaBlock areaName="金沢・石川" />
+</Base>

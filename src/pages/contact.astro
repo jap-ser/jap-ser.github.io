@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { COMPANY, FORM, CITIES } from '../config/site';
+import { breadcrumbLd } from '../lib/seo';
+const crumbs = [{ name: 'トップ', href: '/' }, { name: 'ご相談・お問い合わせ', href: '/contact/' }];
+const desc = '不動産の売却・買取のご相談はLINE・お電話・フォームから。所在地（町名まで）・種別・おおよその面積が分かれば概算をお伝えします。金沢市のジャパンサービス。';
+---
+<Base title="ご相談・お問い合わせ" description={desc} path="/contact/" jsonLd={[breadcrumbLd(crumbs)]}>
+  <Breadcrumb items={crumbs} />
+  <h1>ご相談・お問い合わせ</h1>
+  <p class="lead">売るかどうか決めていなくても大丈夫です。所在地（町名まで）・種別（土地／戸建／マンション）・おおよその面積が分かれば、相場データをもとに概算をお伝えします。</p>
+
+  <div class="compare">
+    <div class="card">
+      <h3>LINEで相談（いちばん早い）</h3>
+      <p class="small">写真や登記情報の画像もそのまま送れます。返信は営業時間内に行います。</p>
+      <a class="btn line" href={COMPANY.line} rel="noopener">LINEで友だち追加して相談</a>
+    </div>
+    <div class="card">
+      <h3>お電話</h3>
+      <p class="small">{COMPANY.hours}。担当が不在の場合は折り返します。</p>
+      <a class="btn tel" href={COMPANY.telLink}>{COMPANY.tel}</a>
+    </div>
+  </div>
+
+  {FORM.formspreeId ? (
+    <>
+      <h2>フォームで相談</h2>
+      <form action={`https://formspree.io/f/${FORM.formspreeId}`} method="POST" class="card" style="max-width:640px">
+        <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+        <input type="hidden" name="_subject" value="【相場サイト】売却・買取のご相談" />
+        <p><label>お名前<br /><input name="name" required style="width:100%;padding:8px;border:1px solid var(--line);border-radius:6px" /></label></p>
+        <p><label>ご連絡先（電話またはメール）<br /><input name="contact" required style="width:100%;padding:8px;border:1px solid var(--line);border-radius:6px" /></label></p>
+        <p><label>物件の所在地（市町・町名まで）<br /><input name="location" placeholder="例：金沢市西都2丁目" style="width:100%;padding:8px;border:1px solid var(--line);border-radius:6px" /></label></p>
+        <p><label>種別<br />
+          <select name="type" style="padding:8px;border:1px solid var(--line);border-radius:6px">
+            <option>土地</option><option>戸建</option><option>マンション</option><option>その他・不明</option>
+          </select></label></p>
+        <p><label>ご希望<br />
+          <select name="wish" style="padding:8px;border:1px solid var(--line);border-radius:6px">
+            <option>相場を知りたい</option><option>買取価格を知りたい</option><option>仲介と買取の両方を比べたい</option><option>まだ決めていない</option>
+          </select></label></p>
+        <p><label>ご状況・ご質問（任意）<br /><textarea name="message" rows="5" style="width:100%;padding:8px;border:1px solid var(--line);border-radius:6px"></textarea></label></p>
+        <p class="note">送信いただいた内容は、ご相談への回答のためにのみ使用します。<a href="/privacy/">プライバシーポリシー</a></p>
+        <button class="btn form" type="submit" style="border:none;cursor:pointer">送信する</button>
+      </form>
+    </>
+  ) : (
+    <p class="note" style="margin-top:20px">フォームは準備中です。LINEまたはお電話でご連絡ください。</p>
+  )}
+
+  <h2>対応エリア</h2>
+  <div class="chips">{CITIES.map((c) => <a href={`/${c.key}/`}>{c.name}</a>)}</div>
+  <p class="small muted">周辺エリアもご相談ください。</p>
+</Base>

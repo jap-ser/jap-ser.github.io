@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { COMPANY, ANALYTICS } from '../config/site';
+const crumbs = [{ name: 'トップ', href: '/' }, { name: 'プライバシーポリシー', href: '/privacy/' }];
+---
+<Base title="プライバシーポリシー" description={`${COMPANY.name}の個人情報の取り扱いについて`} path="/privacy/" noindex>
+  <Breadcrumb items={crumbs} />
+  <h1>プライバシーポリシー</h1>
+  <div class="prose">
+    <p>{COMPANY.name}（以下「当社」）は、本サイトを通じてお預かりする個人情報を、以下のとおり取り扱います。</p>
+    <h2>取得する情報</h2>
+    <p>お名前、ご連絡先、物件の所在地、ご相談内容など、LINE・お電話・フォームでお知らせいただいた情報。</p>
+    <h2>利用目的</h2>
+    <p>ご相談への回答、査定・買取のご提案、契約に関する連絡のためにのみ利用します。ご本人の同意なく、これ以外の目的で利用したり第三者に提供したりしません（法令に基づく場合を除く）。</p>
+    <h2>外部サービス</h2>
+    <p>フォーム送信には Formspree を利用しています。{ANALYTICS.ga4Id ? 'また、サイト改善のため Google アナリティクスを利用しており、Cookie により匿名の利用状況を収集しています。' : ''}LINEでのご相談は LINE株式会社のサービスを通じて行われます。各サービスの取り扱いは各社の規約に従います。</p>
+    <h2>開示・訂正・削除</h2>
+    <p>ご本人からの求めがあれば、保有する情報の開示・訂正・削除に速やかに応じます。下記までご連絡ください。</p>
+    <h2>お問い合わせ窓口</h2>
+    <p>{COMPANY.name}　{COMPANY.address}　TEL {COMPANY.tel}（{COMPANY.hours}）</p>
+  </div>
+</Base>

@@ -1,0 +1,12 @@
+---
+interface Props { items: { name: string; href: string }[] }
+const { items } = Astro.props;
+---
+<nav class="crumbs" aria-label="現在地">
+  {items.map((it, i) => (
+    <>
+      {i > 0 && <span>›</span>}
+      {i < items.length - 1 ? <a href={it.href}>{it.name}</a> : <b style="font-weight:500">{it.name}</b>}
+    </>
+  ))}
+</nav>

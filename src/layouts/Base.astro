@@ -1,0 +1,191 @@
+---
+import { SITE, COMPANY, ANALYTICS, CITIES } from '../config/site';
+import { isSample, agg } from '../lib/data';
+
+interface Props {
+  title: string;
+  description: string;
+  path: string;              // 例: '/kanazawa/西都/'
+  jsonLd?: object[];         // 追加の構造化データ
+  noindex?: boolean;
+}
+const { title, description, path, jsonLd = [], noindex = false } = Astro.props;
+const canonical = new URL(path, SITE.url).href;
+const fullTitle = path === '/' ? SITE.name : `${title} | ${SITE.shortName}`;
+
+const orgLd = {
+  '@context': 'https://schema.org',
+  '@type': 'RealEstateAgent',
+  name: COMPANY.name,
+  url: SITE.url,
+  telephone: '+81-76-267-8552',
+  address: { '@type': 'PostalAddress', addressCountry: 'JP', addressRegion: '石川県', addressLocality: '金沢市', streetAddress: '西都2丁目162番地' },
+  openingHours: 'Mo-Fr 09:00-18:00',
+  founder: { '@type': 'Person', name: COMPANY.rep },
+  sameAs: [COMPANY.website],
+  areaServed: CITIES.map((c) => ({ '@type': 'City', name: c.name })),
+};
+---
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex" />}
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content={SITE.shortName} />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:locale" content={SITE.locale} />
+  <meta name="twitter:card" content="summary" />
+  {ANALYTICS.searchConsoleMeta && <meta name="google-site-verification" content={ANALYTICS.searchConsoleMeta} />}
+  <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
+  {jsonLd.map((ld) => <script type="application/ld+json" set:html={JSON.stringify(ld)} />)}
+  {ANALYTICS.ga4Id && (
+    <>
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${ANALYTICS.ga4Id}`}></script>
+      <script set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${ANALYTICS.ga4Id}');`} />
+    </>
+  )}
+  <style is:global>
+    :root {
+      --ink: #1f2933; --muted: #5b6770; --line: #dfe4e8; --bg: #ffffff; --soft: #f4f6f8;
+      --brand: #16496b; --brand-dark: #0f3550; --accent: #c8572a; --line-green: #06c755;
+      --max: 960px;
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body { margin: 0; font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic UI", Meiryo, system-ui, sans-serif; color: var(--ink); background: var(--bg); line-height: 1.75; font-size: 16px; }
+    a { color: var(--brand); }
+    img { max-width: 100%; height: auto; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 16px; }
+    header.site { border-bottom: 1px solid var(--line); background: #fff; }
+    header.site .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 56px; flex-wrap: wrap; padding-block: 8px; }
+    .brand { font-weight: 700; text-decoration: none; color: var(--brand-dark); font-size: 1.05rem; line-height: 1.3; }
+    .brand small { display: block; font-weight: 400; color: var(--muted); font-size: .75rem; }
+    nav.g { display: flex; gap: 4px 14px; flex-wrap: wrap; font-size: .9rem; }
+    nav.g a { text-decoration: none; color: var(--ink); padding: 4px 0; }
+    nav.g a:hover { color: var(--brand); text-decoration: underline; }
+    main { padding: 24px 0 48px; }
+    h1 { font-size: 1.55rem; line-height: 1.35; margin: 0 0 12px; }
+    h2 { font-size: 1.25rem; margin: 40px 0 12px; padding-left: 10px; border-left: 4px solid var(--brand); line-height: 1.4; }
+    h3 { font-size: 1.05rem; margin: 24px 0 8px; }
+    p { margin: 0 0 1em; }
+    .lead { color: var(--muted); font-size: .95rem; }
+    .muted { color: var(--muted); }
+    .small { font-size: .85rem; }
+    .note { font-size: .82rem; color: var(--muted); }
+    .crumbs { font-size: .82rem; color: var(--muted); margin-bottom: 12px; }
+    .crumbs a { color: var(--muted); }
+    .crumbs span { margin: 0 6px; }
+    table { border-collapse: collapse; width: 100%; font-size: .92rem; }
+    th, td { border-bottom: 1px solid var(--line); padding: 8px 6px; text-align: left; vertical-align: top; }
+    th { background: var(--soft); font-weight: 600; white-space: nowrap; }
+    td.num, th.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .table-wrap { overflow-x: auto; }
+    .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+    .card { border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; background: #fff; }
+    .card h3 { margin: 0 0 6px; font-size: 1rem; }
+    .card a { text-decoration: none; }
+    .card .kv { font-size: .88rem; color: var(--muted); }
+    .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chips a { display: inline-block; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; text-decoration: none; font-size: .9rem; background: #fff; }
+    .chips a:hover { border-color: var(--brand); }
+    .btn { display: inline-block; padding: 12px 20px; border-radius: 8px; text-decoration: none; font-weight: 700; text-align: center; border: 2px solid transparent; }
+    .btn.line { background: var(--line-green); color: #fff; }
+    .btn.tel { background: #fff; color: var(--brand-dark); border-color: var(--brand-dark); }
+    .btn.form { background: var(--brand); color: #fff; }
+    .btn.ghost { background: #fff; color: var(--brand); border-color: var(--brand); }
+    .btns { display: flex; gap: 10px; flex-wrap: wrap; margin: 12px 0; }
+    .cta { background: var(--soft); border: 1px solid var(--line); border-radius: 10px; padding: 20px 18px; margin: 32px 0; }
+    .cta h2 { margin-top: 0; border: none; padding: 0; font-size: 1.2rem; }
+    .compare { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .compare .card ul { margin: 6px 0 0; padding-left: 1.2em; font-size: .92rem; }
+    .sample-banner { background: #b3261e; color: #fff; text-align: center; font-weight: 700; padding: 8px 12px; font-size: .9rem; }
+    .kpi { display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin: 12px 0 20px; }
+    .kpi div { background: var(--soft); border-radius: 8px; padding: 12px; }
+    .kpi b { display: block; font-size: 1.25rem; color: var(--brand-dark); }
+    .kpi span { font-size: .8rem; color: var(--muted); }
+    .faq details { border-bottom: 1px solid var(--line); padding: 10px 0; }
+    .faq summary { cursor: pointer; font-weight: 600; }
+    .faq details p { margin: 8px 0 0; }
+    .prose p { margin-bottom: 1.1em; }
+    .prose h2 { margin-top: 32px; }
+    .prose ul, .prose ol { padding-left: 1.4em; }
+    footer.site { border-top: 1px solid var(--line); background: var(--soft); padding: 28px 0 40px; font-size: .85rem; color: var(--muted); }
+    footer.site .cols { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    footer.site strong { color: var(--ink); }
+    footer.site a { color: var(--muted); }
+    footer.site ul { list-style: none; margin: 6px 0 0; padding: 0; }
+    footer.site li { margin: 2px 0; }
+    .sticky-cta { position: fixed; left: 0; right: 0; bottom: 0; display: flex; gap: 8px; padding: 8px 12px; background: rgba(255,255,255,.96); border-top: 1px solid var(--line); z-index: 10; }
+    .sticky-cta .btn { flex: 1; padding: 10px 6px; font-size: .9rem; }
+    @media (min-width: 720px) { .sticky-cta { display: none; } }
+    @media (max-width: 719px) { main { padding-bottom: 88px; } h1 { font-size: 1.35rem; } }
+  </style>
+</head>
+<body>
+  {isSample && <div class="sample-banner">※ サンプルデータ表示中（架空の数値）。実データが入るまで公開しません</div>}
+  <header class="site">
+    <div class="wrap">
+      <a class="brand" href="/">金沢の不動産相場・売却<small>{COMPANY.name}｜{COMPANY.license}</small></a>
+      <nav class="g" aria-label="主なページ">
+        <a href="/#areas">町名別相場</a>
+        <a href="/kaitori/">仲介と買取</a>
+        <a href="/guide/">状況別ガイド</a>
+        <a href="/results/">実績</a>
+        <a href="/company/">会社概要</a>
+        <a href="/contact/">ご相談</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <div class="wrap">
+      <slot />
+    </div>
+  </main>
+  <footer class="site">
+    <div class="wrap">
+      <div class="cols">
+        <div>
+          <strong>{COMPANY.name}</strong>
+          <ul>
+            <li>代表者：{COMPANY.rep}</li>
+            <li>{COMPANY.address}</li>
+            <li>TEL：<a href={COMPANY.telLink}>{COMPANY.tel}</a>（{COMPANY.hours}）</li>
+            <li>宅地建物取引業免許：{COMPANY.license}</li>
+            <li>設立：{COMPANY.founded}</li>
+            <li><a href={COMPANY.website} rel="noopener">公式サイト</a></li>
+          </ul>
+        </div>
+        <div>
+          <strong>対象エリア</strong>
+          <ul>
+            {CITIES.map((c) => <li><a href={`/${c.key}/`}>{c.name}の不動産相場</a></li>)}
+          </ul>
+        </div>
+        <div>
+          <strong>ご案内</strong>
+          <ul>
+            <li><a href="/kaitori/">仲介と当社買取の違い</a></li>
+            <li><a href="/guide/">状況別の売却ガイド</a></li>
+            <li><a href="/faq/">よくあるご質問</a></li>
+            <li><a href="/privacy/">プライバシーポリシー</a></li>
+          </ul>
+          <p class="note" style="margin-top:12px">相場データ：国土交通省 不動産情報ライブラリ（不動産取引価格情報）を当社で集計。最新データ期：{agg.latestPeriodLabel}。更新日：{agg.generatedAt}</p>
+        </div>
+      </div>
+      <p class="note" style="margin-top:16px">© {COMPANY.name}</p>
+    </div>
+  </footer>
+  <div class="sticky-cta" aria-label="ご相談">
+    <a class="btn line" href={COMPANY.line} rel="noopener">LINEで相談</a>
+    <a class="btn tel" href={COMPANY.telLink}>電話する</a>
+  </div>
+</body>
+</html>

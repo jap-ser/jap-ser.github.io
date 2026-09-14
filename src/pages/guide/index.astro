@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
+import { breadcrumbLd } from '../../lib/seo';
+const guides = (await getCollection('guide')).sort((a, b) => a.data.order - b.data.order);
+const crumbs = [{ name: 'トップ', href: '/' }, { name: '状況別ガイド', href: '/guide/' }];
+const desc = '相続・空き家・住み替え・離婚・ローン残債・遠方・施設入所など、事情別に不動産売却の進め方をまとめたガイド。金沢市の地元不動産会社が実務の順番で解説します。';
+---
+<Base title="状況別 売却ガイド" description={desc} path="/guide/" jsonLd={[breadcrumbLd(crumbs)]}>
+  <Breadcrumb items={crumbs} />
+  <h1>状況別 売却ガイド</h1>
+  <p class="lead">「何から手を付ければいいか」を事情別にまとめました。どのガイドも、最後は相場を見て仲介と買取のどちらが合うかを一緒に考える、という流れになっています。</p>
+  <div class="grid">
+    {guides.map((g) => (
+      <div class="card">
+        <h3><a href={`/guide/${g.id}/`}>{g.data.title}</a></h3>
+        <div class="kv">{g.data.description}</div>
+      </div>
+    ))}
+  </div>
+  <CtaBlock areaName="金沢・石川" />
+</Base>

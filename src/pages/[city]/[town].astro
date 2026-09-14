@@ -1,0 +1,82 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import PriceTable from '../../components/PriceTable.astro';
+import TrendChart from '../../components/TrendChart.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
+import { CITIES, DATA_SOURCE } from '../../config/site';
+import { agg, townsWithPage, relatedTowns, textFor, tsubo, yen, sqm, pct } from '../../lib/data';
+import { breadcrumbLd } from '../../lib/seo';
+
+export function getStaticPaths() {
+  const out: { params: { city: string; town: string } }[] = [];
+  for (const c of CITIES) {
+    const city = agg.cities[c.key];
+    if (!city) continue;
+    for (const t of townsWithPage(city)) out.push({ params: { city: c.key, town: t.slug } });
+  }
+  return out;
+}
+const { city, town } = Astro.params;
+const c = agg.cities[city as keyof typeof agg.cities];
+const t = Object.values(c.towns).find((x) => x.slug === town)!;
+const s = t.summary;
+const text = textFor(`${c.key}_${t.slug}`);
+const related = relatedTowns(c, t);
+const title = `${c.name}${t.name}の不動産相場（土地・戸建・マンション）`;
+const parts: string[] = [];
+if (s.land.y3.count) parts.push(`土地の坪単価中央値は${tsubo(s.land.y3.medianTsubo)}（直近3年${s.land.y3.count}件）`);
+if (s.house.y3.count) parts.push(`戸建は${yen(s.house.y3.medianPrice)}（${s.house.y3.count}件）`);
+if (s.condo.y3.count) parts.push(`マンションは${tsubo(s.condo.y3.medianTsubo)}（${s.condo.y3.count}件）`);
+const desc = text?.summary ?? `${c.name}${t.name}の不動産相場。国土交通省の取引データでは${parts.join('、')}。四半期推移と売却・買取の考え方を掲載。`;
+const crumbs = [{ name: 'トップ', href: '/' }, { name: `${c.name}の相場`, href: `/${c.key}/` }, { name: t.name, href: `/${c.key}/${t.slug}/` }];
+const latestQ = t.quarterly?.filter((q) => q.land.count + q.house.count + q.condo.count > 0).slice(-1)[0];
+---
+<Base title={title} description={desc} path={`/${c.key}/${t.slug}/`} jsonLd={[breadcrumbLd(crumbs)]}>
+  <Breadcrumb items={crumbs} />
+  <h1>{c.name}{t.name}の不動産相場（土地・戸建・マンション）</h1>
+  <p class="lead">国土交通省の不動産取引価格情報から、{t.name}の取引を集計しました。直近3年の取引は{s.total3y}件（うち直近1年{s.total1y}件）。最新データ期：{agg.latestPeriodLabel}、{agg.generatedAt}更新。</p>
+
+  <div class="kpi">
+    <div><b>{s.land.y3.count ? tsubo(s.land.y3.medianTsubo) : '—'}</b><span>土地 坪単価（直近3年 中央値・{s.land.y3.count}件）</span></div>
+    <div><b>{s.house.y3.count ? yen(s.house.y3.medianPrice) : '—'}</b><span>戸建 価格（直近3年 中央値・{s.house.y3.count}件）</span></div>
+    <div><b>{s.condo.y3.count ? tsubo(s.condo.y3.medianTsubo) : '—'}</b><span>マンション 坪単価（直近3年 中央値・{s.condo.y3.count}件）</span></div>
+    <div><b>{s.land.trend ? pct(s.land.trend.pct) : (s.house.trend ? pct(s.house.trend.pct) : '—')}</b><span>{s.land.trend ? '土地坪単価 直近1年の動き' : s.house.trend ? '戸建価格 直近1年の動き' : '直近1年の動き（件数少のため非表示）'}</span></div>
+  </div>
+
+  <h2>{t.name}の相場サマリー</h2>
+  <PriceTable summary={s} />
+  {s.land.y3.count > 0 && s.land.y3.p25Tsubo != null && (
+    <p class="small">土地の坪単価の中間帯（下から25%〜75%）は <b>{s.land.y3.p25Tsubo}〜{s.land.y3.p75Tsubo}万円/坪</b>、面積の中央値は {sqm(s.land.y3.medianArea)} です。この帯から外れる取引は、形状・接道・面積などの個別事情が影響していると考えられます。</p>
+  )}
+
+  {t.quarterly && <TrendChart rows={t.quarterly} title={`${t.name}の四半期推移（直近3年）`} />}
+  {latestQ && <p class="note">直近で取引があった期：{latestQ.label}（{latestQ.land.count + latestQ.house.count + latestQ.condo.count}件）</p>}
+
+  {text ? (
+    <section class="prose">
+      <h2>{t.name}で売却を考えるときの見方</h2>
+      {text.paragraphs.map((p) => <p>{p}</p>)}
+    </section>
+  ) : (
+    <section class="prose">
+      <h2>{t.name}で売却を考えるときの見方</h2>
+      <p>上の表は{t.name}で実際に成立した取引の集計です。中央値は「真ん中の取引」の値で、極端に高い・安い取引の影響を受けにくい代表値です。件数が少ない区分は、1件の取引で数字が大きく動くため参考値としてご覧ください。</p>
+      <p>実際の売却価格は、面積・形状・前面道路・建物の状態・売却時期などで変わります。相場を踏まえたうえで、時間をかけて高く売る仲介と、早く手間なく終える当社買取のどちらが合うか、一緒に考えましょう。</p>
+    </section>
+  )}
+
+  <CtaBlock areaName={`${t.name}`} summary={s} />
+
+  {related.length > 0 && (
+    <>
+      <h2>{c.name}の近くの町名の相場</h2>
+      <div class="chips">
+        {related.map((r) => <a href={`/${c.key}/${r.slug}/`}>{r.name}</a>)}
+        <a href={`/${c.key}/#towns`}>{c.name}のすべての町名 →</a>
+      </div>
+    </>
+  )}
+
+  <p class="note" style="margin-top:24px">{DATA_SOURCE}を当社で町名・種別ごとに集計。個々の取引が特定できないよう町名単位までの掲載としています。取引価格情報は取引当事者へのアンケートに基づくため実際の取引の一部であり、最新期の件数は公表後に増えることがあります。</p>
+</Base>

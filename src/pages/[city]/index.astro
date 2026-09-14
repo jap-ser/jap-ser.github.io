@@ -1,0 +1,73 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import PriceTable from '../../components/PriceTable.astro';
+import TrendChart from '../../components/TrendChart.astro';
+import CtaBlock from '../../components/CtaBlock.astro';
+import { CITIES, DATA_SOURCE } from '../../config/site';
+import { agg, townsWithPage, townsWithoutPage, textFor, tsubo, yen } from '../../lib/data';
+import { breadcrumbLd } from '../../lib/seo';
+
+export function getStaticPaths() {
+  return CITIES.filter((c) => agg.cities[c.key]).map((c) => ({ params: { city: c.key } }));
+}
+const { city } = Astro.params;
+const c = agg.cities[city as keyof typeof agg.cities];
+const pages = townsWithPage(c);
+const others = townsWithoutPage(c);
+const text = textFor(c.key);
+const title = `${c.name}の不動産相場（土地・戸建・マンション）と売却・買取`;
+const desc = text?.summary ?? `${c.name}の不動産相場を国土交通省の取引データから町名別に集計。土地・戸建・マンションの取引件数と価格・坪単価の中央値、四半期推移を毎月更新。仲介と当社買取の両方をご提案します。`;
+const crumbs = [{ name: 'トップ', href: '/' }, { name: `${c.name}の相場`, href: `/${c.key}/` }];
+---
+<Base title={title} description={desc} path={`/${c.key}/`} jsonLd={[breadcrumbLd(crumbs)]}>
+  <Breadcrumb items={crumbs} />
+  <h1>{c.name}の不動産相場（土地・戸建・マンション）</h1>
+  <p class="lead">{c.name}全体の取引データを集計した相場と、町名ごとの相場ページの一覧です。最新データ期：{agg.latestPeriodLabel}（{agg.generatedAt}更新）</p>
+
+  <h2>{c.name}全体の相場</h2>
+  <PriceTable summary={c.summary} />
+  <TrendChart rows={c.quarterly} title={`${c.name}の四半期推移（直近3年）`} />
+
+  {text && (
+    <section class="prose">
+      <h2>{c.name}の相場の見方</h2>
+      {text.paragraphs.map((p) => <p>{p}</p>)}
+    </section>
+  )}
+
+  <h2 id="towns">町名別の相場ページ（{pages.length}町名）</h2>
+  <p class="small muted">直近3年で3件以上の取引がある町名を個別ページにしています。取引件数の多い順。</p>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>町名</th><th class="num">直近3年 件数</th><th class="num">土地 坪単価（中央値）</th><th class="num">戸建 価格（中央値）</th><th class="num">マンション 坪単価</th></tr></thead>
+      <tbody>
+        {pages.map((t) => (
+          <tr>
+            <td><a href={`/${c.key}/${t.slug}/`}>{t.name}</a></td>
+            <td class="num">{t.summary.total3y}件</td>
+            <td class="num">{t.summary.land.y3.count ? tsubo(t.summary.land.y3.medianTsubo) : '—'}</td>
+            <td class="num">{t.summary.house.y3.count ? yen(t.summary.house.y3.medianPrice) : '—'}</td>
+            <td class="num">{t.summary.condo.y3.count ? tsubo(t.summary.condo.y3.medianTsubo) : '—'}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  {others.length > 0 && (
+    <>
+      <h3>取引が少ない町名（直近3年で3件未満）</h3>
+      <p class="small muted">件数が少なく相場として示しにくいため一覧のみ掲載しています。これらの町名の物件も査定・買取のご相談を承ります。</p>
+      <p class="small">{others.map((t) => t.name).join('、')}</p>
+    </>
+  )}
+
+  <CtaBlock areaName={c.name} summary={c.summary} />
+
+  <h2>他のエリア</h2>
+  <div class="chips">
+    {CITIES.filter((x) => x.key !== c.key && agg.cities[x.key]).map((x) => <a href={`/${x.key}/`}>{x.name}の相場</a>)}
+  </div>
+  <p class="note" style="margin-top:24px">{DATA_SOURCE}を当社で集計。取引価格情報は取引当事者へのアンケートに基づくため、実際の取引の一部です。最新期の件数は公表後に増えることがあります。</p>
+</Base>

@@ -1,0 +1,35 @@
+---
+// 相場サマリー表（直近1年／3年 × 土地・戸建・マンション）
+import { TYPE_LABEL, type TypeKey } from '../config/site';
+import { yen, tsubo, sqm, pct, nendo, type Summary } from '../lib/data';
+import { agg } from '../lib/data';
+
+interface Props { summary: Summary; caption?: string }
+const { summary, caption } = Astro.props;
+const types: TypeKey[] = ['land', 'house', 'condo'];
+---
+<div class="table-wrap">
+  <table>
+    {caption && <caption class="small muted" style="text-align:left;padding:4px 0">{caption}</caption>}
+    <thead>
+      <tr><th>種別・期間</th><th class="num">取引件数</th><th class="num">価格（中央値）</th><th class="num">坪単価（中央値）</th><th class="num">面積（中央値）</th><th class="num">直近1年の動き</th></tr>
+    </thead>
+    <tbody>
+      {types.map((t) => {
+        const s = summary[t];
+        const rows = [['直近1年', s.y1], ['直近3年', s.y3]] as const;
+        return rows.map(([label, st], i) => (
+          <tr>
+            <th>{i === 0 ? TYPE_LABEL[t] : ''}<span class="muted small" style="font-weight:400">{i === 0 ? ' ' : ''}{label}</span></th>
+            <td class="num">{st.count}件</td>
+            <td class="num">{st.count ? yen(st.medianPrice) : '—'}</td>
+            <td class="num">{st.count ? (t === 'house' ? (st.medianBuildingYear ? `築年 ${nendo(st.medianBuildingYear)}` : '—') : tsubo(st.medianTsubo)) : '—'}</td>
+            <td class="num">{st.count ? sqm(st.medianArea) : '—'}</td>
+            <td class="num">{i === 0 ? (s.trend ? pct(s.trend.pct) : <span class="muted">件数少</span>) : ''}</td>
+          </tr>
+        ));
+      })}
+    </tbody>
+  </table>
+</div>
+<p class="note">直近1年＝{agg.windowY1}、直近3年＝{agg.windowY3}。中央値は外れ値の影響を受けにくい代表値です。戸建の坪単価欄は建物込みのため築年（中央値）を表示。「直近1年の動き」は直近1年とその前1年の中央値の比較（土地・マンションは坪単価、戸建は価格）で、いずれか5件未満の場合は表示しません。件数が少ない区分は参考値としてご覧ください。</p>

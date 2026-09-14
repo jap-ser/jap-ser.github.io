@@ -1,0 +1,10 @@
+---
+import Base from '../layouts/Base.astro';
+import { CITIES } from '../config/site';
+---
+<Base title="ページが見つかりません" description="お探しのページは見つかりませんでした" path="/404.html" noindex>
+  <h1>ページが見つかりません</h1>
+  <p>URLが変わったか、町名ページが集約された可能性があります。エリアのページからお探しください。</p>
+  <div class="chips">{CITIES.map((c) => <a href={`/${c.key}/`}>{c.name}の相場</a>)}</div>
+  <p style="margin-top:16px"><a href="/">トップへ戻る</a></p>
+</Base>

@@ -1,0 +1,45 @@
+# main への push で Astro をビルドし GitHub Pages に公開する
+# 月次のデータ更新は Windows PC 側（run-monthly.bat）が data/ を更新して push する → この workflow が走る
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: サンプルデータなら公開を止める
+        run: |
+          node -e "const a=require('./data/aggregated.json'); if(a.sample){console.error('aggregated.json が sample:true です。実データを入れてから push してください。'); process.exit(1)}"
+      - run: npm run build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
