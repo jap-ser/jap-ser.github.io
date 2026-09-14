@@ -86,6 +86,8 @@ for (const c of Object.values(agg.cities)) {
 }
 
 let done = 0, skipped = 0, failed = 0;
+let transientFails = 0;   // 連続した一時エラーの回数（成功でリセット）
+const MAX_WAITS = 12;     // 待機して再試行する上限（1,1,5,5,15,15,... 分 ≒ 最大約2時間）
 for (const j of jobs) {
   if (done >= limit) break;
   const facts = describe(j.name, j.summary, agg.latestPeriodLabel);
@@ -100,7 +102,7 @@ for (const j of jobs) {
       const err = validate(out, facts);
       if (err) { lastErr = err; continue; }
       writeJSON(file, { id: j.id, name: j.name, hash, generatedAt: new Date().toISOString().slice(0, 10), paragraphs: out.paragraphs, summary: out.summary });
-      ok = true; done++;
+      ok = true; done++; transientFails = 0;
       console.log(`生成 ${j.name}`);
     } catch (e) {
       lastErr = e.message;
@@ -108,9 +110,17 @@ for (const j of jobs) {
         console.error('Claude Code のログインが切れています。karte\\claude-login.bat をダブルクリックして再ログインしてください。');
         process.exit(1);
       }
-      if (/rate limit|usage limit|limit reached|429/i.test(e.message)) {
-        console.error('利用枠の上限に達した可能性があります。次回の実行で続きから再開します。');
-        process.exit(1);
+      // 利用枠・通信などの一時的なエラー: 待ってから同じ町をやり直す（最大 MAX_WAITS 回）
+      if (/rate limit|usage limit|limit reached|429|exit 1|overloaded|ECONN|timeout/i.test(e.message)) {
+        transientFails++;
+        if (transientFails > MAX_WAITS) {
+          console.error(`一時的なエラーが続くため終了します（${transientFails - 1}回待機）。次回の実行で続きから再開します。最後のエラー: ${e.message.slice(0, 200)}`);
+          process.exit(1);
+        }
+        const waitMin = transientFails <= 2 ? 1 : transientFails <= 4 ? 5 : 15;
+        console.error(`一時エラー（${e.message.slice(0, 120)}）。${waitMin}分待って再試行します（${transientFails}/${MAX_WAITS}）`);
+        await new Promise((r) => setTimeout(r, waitMin * 60 * 1000));
+        attempt--; // この試行はカウントしない
       }
     }
   }
