@@ -82,5 +82,6 @@
 - [x] Search Console 登録・所有権確認（HTMLファイル `public/google26c05ca144b0be6a.html`。消さない）、sitemap-index.xml 送信済み（2026-09-14）
 - [x] Googleビジネスプロフィール「金沢市不動産売却相談ナビ」のウェブサイトを https://jap-ser.github.io/ に変更（審査待ち）。同プロフィールの郵便番号 920-0811 は 920-8202 が正しい（未修正）
 - [ ] jap-ser.com のDNS（WADAX: wadax-sv.jp）に CNAME `baikyaku` → `jap-ser.github.io` を追加 → `public/CNAME` と `SITE.url`・`astro.config.mjs`・robots.txt を切替
-- [ ] GA4（任意）
+- [x] GA4「ジャパンサービス 相場サイト」（プロパティID 554127940、測定ID G-29D3DP7W77、アカウント js）を作成し `src/config/site.ts` に設定（2026-09-15）
+- [x] 日次分析タスク `baikyaku-daily-analysis`（毎日18:00、レポートは `karte\baikyaku-reports\`）
 - [ ] 実績記録の初期データ（あれば）
