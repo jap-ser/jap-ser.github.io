@@ -41,6 +41,15 @@
 | 月次タスクを登録 | `setup-monthly-task.bat`（1回だけ） |
 | 実績を追加 | `data/results.json` の items に追記して push |
 
+## SNS自動投稿（Facebook・Instagram）
+
+- `scripts/social/make-cards.mjs`：aggregated.json から 1080×1080 の相場カード画像（JPEG）と投稿文を生成。数字はデータからのみ。出力 `public/social/cards/`、投稿文 `data/social/captions.json`
+- `scripts/social/post.mjs`：未投稿の町名を1件選ぶ → カード生成 → push（GitHub Pages で画像を公開）→ Facebookページに写真投稿 → Instagram に投稿 → `data/social/log.json` に記録。`--dry-run` で投稿せずに確認
+- `run-social.bat`：1回分の投稿。`setup-social-task.bat`：月・水・金 11:30 に自動実行を登録
+- 必要な設定（karte\.env）：`FB_PAGE_ID`（ページID 61572478978322 = 「金沢市の不動産会社 ジャパンサービス」）、`FB_PAGE_TOKEN`（ページの長期アクセストークン）、`IG_USER_ID`（InstagramビジネスアカウントのID。無ければFacebookのみ）
+- トークンの取り方：Meta for Developers に登録 → アプリ作成（ビジネス）→ Facebookログイン／Instagram Graph API を追加 → グラフAPIエクスプローラで pages_manage_posts, pages_read_engagement, instagram_basic, instagram_content_publish を付けてユーザートークン → 長期化 → /me/accounts でページトークン取得
+- 同じ期（latestPeriod）では同じ町名を2回投稿しない。データが更新されると再投稿対象になる
+
 ## 設定を変える場所
 
 - 会社情報・LINE・フォームID・GA4：`src/config/site.ts`
