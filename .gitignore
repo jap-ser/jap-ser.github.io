@@ -11,3 +11,6 @@ data/raw/
 logs/
 .DS_Store
 data/csv/
+
+# SNS投稿カードの生成物（sns/render_posts.py の出力）
+sns/out/
