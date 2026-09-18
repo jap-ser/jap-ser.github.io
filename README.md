@@ -53,7 +53,7 @@
 ## 設定を変える場所
 
 - 会社情報・LINE・フォームID・GA4・検索結果に出すサイト名（`SITE.siteName`）：`src/config/site.ts`
-- ロゴ／ファビコン：`public/favicon.svg` を差し替えて `node scripts/make-icons.mjs`
+- ロゴ／ファビコン：`public/logo-source.png`（またはSVG）を置いて `node scripts/make-icons.mjs`
 - 公開URL：`src/config/site.ts` の `SITE.url`、`astro.config.mjs` の `site`、`public/robots.txt`。独自ドメイン化するときは `public/CNAME` に `baikyaku.jap-ser.com` を1行書く
 - 町名ページを作る最低件数（既定3件/3年）：`scripts/aggregate.mjs` の `MIN_TOWN_3Y`
 - ガイド記事：`src/content/guide/*.md`。本人が目視したら frontmatter の `reviewed: true` にする（それまで noindex）
@@ -67,7 +67,7 @@ Google検索で「GitHub」＋GitHubのアイコンと表示されていた件�
 - サイト名の申告：トップページだけに `WebSite` 構造化データを出力（`name: ジャパンサービス` /
   `alternateName: 有限会社ジャパンサービス`）。`og:site_name` も `ジャパンサービス` にそろえた
 - 会社情報：`RealEstateAgent` 構造化データに `logo`（`/logo.png`）と `@id` を追加
-- アイコン：会社マークを `public/favicon.svg` に置き、`node scripts/make-icons.mjs` で
+- アイコン：マーク画像から `node scripts/make-icons.mjs` で
   `favicon.ico`（16/32/48px）・`icon-192.png`・`icon-512.png`・`apple-touch-icon.png`・`logo.png` を生成。
   GoogleはまずサイトルートのICOを取りに来るので48px入りの本物のICOにしてある
 - ヘッダー左にも同じマークを表示
@@ -76,9 +76,32 @@ Google検索で「GitHub」＋GitHubのアイコンと表示されていた件�
 「インデックス登録をリクエスト」しておくと早い。**サイト名が確実に変わるわけではない**（Googleの判断）。
 確実にしたいなら独自ドメイン `baikyaku.jap-ser.com` への切替が本命。下の「やってもらうこと」のDNS作業。
 
-ロゴマークは実ロゴの画像データがなかったため、サイトのブランドカラー（#2f6f5e）で新規に作った
-家＋Jのマーク。本物のロゴ画像があれば `public/favicon.svg` を差し替えて
-`node scripts/make-icons.mjs` を実行すれば全サイズ作り直せる。
+### ロゴの差し替え（正式ロゴ待ち）
+
+いま入っているマークは**仮**。サイトのブランドカラー（#2f6f5e）で作った家＋Jのマークで、
+会社の正式ロゴではない。正式ロゴの画像を受け取ったら：
+
+1. その画像を `public/logo-source.png`（SVGなら `logo-source.svg`）として置く
+2. `node scripts/make-icons.mjs` を実行 → favicon.ico / favicon.svg / icon-192 / icon-512 /
+   apple-touch-icon / logo.png が全部作り直される
+3. HTML側の参照URLは変わらないので、他に直す場所はない。`npm run build` して push
+
+白地のロゴで余白が透明になるのが困るときや、枠いっぱいで窮屈なときはオプションを付ける：
+
+```
+node scripts/make-icons.mjs --bg=#ffffff --pad=8
+```
+
+**もらいたいデータ**（優先順）：
+
+- SVG / AI / EPS（ベクター）。一番きれい。名刺や看板を作った業者が持っていることが多い
+- PNG（背景透過、512px角以上）
+- それも無ければ JPG でも可。ただし小さい画像を引き伸ばすとぼやける
+
+**横長のロゴ（社名が横に長く入っているタイプ）はファビコンには向かない**。16pxまで縮むと
+文字が読めなくなるため、正方形に収まるマーク部分だけのデータも一緒にもらえると良い。
+マーク部分が無い場合は、正式ロゴは `logo.png`（構造化データ・SNS用）に使い、
+ファビコンは頭文字だけを抜き出して作る形になる。
 
 ## データの現状（2026-09-14）
 
@@ -107,4 +130,6 @@ Google検索で「GitHub」＋GitHubのアイコンと表示されていた件�
 - [ ] jap-ser.com のDNS（WADAX: wadax-sv.jp）に CNAME `baikyaku` → `jap-ser.github.io` を追加 → `public/CNAME` と `SITE.url`・`astro.config.mjs`・robots.txt を切替
 - [x] GA4「ジャパンサービス 相場サイト」（プロパティID 554127940、測定ID G-29D3DP7W77、アカウント js）を作成し `src/config/site.ts` に設定（2026-09-15）
 - [x] 日次分析タスク `baikyaku-daily-analysis`（毎日18:00、レポートは `karte\baikyaku-reports\`）
+- [ ] **会社の正式ロゴの画像を共有**（ベクター＞背景透過PNG 512px角以上）。今のファビコンは仮マーク。
+      受け取ったら `public/logo-source.png` に置いて `node scripts/make-icons.mjs` → 詳しくは上の「ロゴの差し替え」
 - [ ] 実績記録の初期データ（あれば）
