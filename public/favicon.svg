@@ -1,1 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#16496b"/><path d="M12 34 32 16l20 18v18H38V40H26v12H12z" fill="#fff"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="ジャパンサービス">
+  <rect width="64" height="64" rx="14" fill="#2f6f5e"/>
+  <path d="M13.5 28 L32 12.5 L50.5 28" fill="none" stroke="#ffffff" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M34.5 25 h8.5 v15.8 c0 6.6 -4.9 11.2 -11.8 11.2 c-6.8 0 -11.6 -4.3 -11.8 -11.4 h8.6 c0.2 2.6 1.5 4 3.3 4 c2 0 3.2 -1.4 3.2 -4 z" fill="#ffffff"/>
+</svg>

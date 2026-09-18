@@ -4,6 +4,9 @@ export const SITE = {
   url: 'https://jap-ser.github.io',
   name: '金沢の不動産相場と売却・買取 | ジャパンサービス',
   shortName: '金沢 不動産相場・売却',
+  // Google検索の「サイト名」として出したい表記。og:site_name と WebSite 構造化データで使う。
+  // 短い屋号にするのがGoogleの推奨（正式商号は alternateName 側で伝える）
+  siteName: 'ジャパンサービス',
   description:
     '金沢市・野々市市・白山市・津幡町・かほく市・能美市・小松市・羽咋市の町名別の不動産相場を、国土交通省の取引データから毎月更新。仲介と自社買取の両方をご提案します。',
   locale: 'ja_JP',

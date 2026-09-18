@@ -15,17 +15,36 @@ const { title, description, path, jsonLd = [], noindex = false, wide = false } =
 const canonical = new URL(path, SITE.url).href;
 const fullTitle = path === '/' ? SITE.name : `${title} | ${SITE.shortName}`;
 
+const logoUrl = new URL('/logo.png', SITE.url).href;
+
 const orgLd = {
   '@context': 'https://schema.org',
   '@type': 'RealEstateAgent',
+  '@id': `${SITE.url}/#organization`,
   name: COMPANY.name,
+  alternateName: SITE.siteName,
   url: SITE.url,
+  logo: { '@type': 'ImageObject', url: logoUrl, width: 512, height: 512 },
+  image: logoUrl,
   telephone: '+81-76-267-8552',
   address: { '@type': 'PostalAddress', addressCountry: 'JP', addressRegion: '石川県', addressLocality: '金沢市', streetAddress: '西都2丁目162番地' },
   openingHours: 'Mo-Fr 09:00-18:00',
   founder: { '@type': 'Person', name: COMPANY.rep },
   sameAs: [COMPANY.website],
   areaServed: CITIES.map((c) => ({ '@type': 'City', name: c.name })),
+};
+
+// 検索結果に出る「サイト名」の指定。Googleはトップページの WebSite だけを見るので、
+// トップ（path === '/'）のときだけ出力する
+const websiteLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${SITE.url}/#website`,
+  name: SITE.siteName,
+  alternateName: [COMPANY.name, SITE.name],
+  url: `${SITE.url}/`,
+  inLanguage: 'ja',
+  publisher: { '@id': `${SITE.url}/#organization` },
 };
 ---
 <html lang="ja">
@@ -36,13 +55,18 @@ const orgLd = {
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
   {noindex && <meta name="robots" content="noindex" />}
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="sitemap" href="/sitemap-index.xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@600;700&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet" />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content={SITE.shortName} />
+  <meta property="og:site_name" content={SITE.siteName} />
+  <meta name="application-name" content={SITE.siteName} />
+  <meta name="theme-color" content="#2f6f5e" />
   <meta property="og:title" content={fullTitle} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
@@ -51,6 +75,7 @@ const orgLd = {
   <meta name="twitter:card" content="summary" />
   {ANALYTICS.searchConsoleMeta && <meta name="google-site-verification" content={ANALYTICS.searchConsoleMeta} />}
   <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
+  {path === '/' && <script type="application/ld+json" set:html={JSON.stringify(websiteLd)} />}
   {jsonLd.map((ld) => <script type="application/ld+json" set:html={JSON.stringify(ld)} />)}
   {ANALYTICS.ga4Id && (
     <>
@@ -75,8 +100,10 @@ const orgLd = {
     /* header */
     header.site { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.96); backdrop-filter: blur(6px); border-bottom: 1px solid var(--rule); }
     header.site .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 60px; padding-block: 8px; }
-    .brand { font-family: var(--serif); font-weight: 700; text-decoration: none; color: var(--ink); font-size: 1.05rem; line-height: 1.25; }
+    .brand { display: flex; align-items: center; gap: 10px; font-family: var(--serif); font-weight: 700; text-decoration: none; color: var(--ink); font-size: 1.05rem; line-height: 1.25; }
+    .brand img { width: 40px; height: 40px; flex: none; border-radius: 9px; }
     .brand small { display: block; font-family: var(--sans); font-weight: 400; color: var(--muted); font-size: .72rem; letter-spacing: .02em; }
+    .brand small i { font-style: normal; }
     .head-right { display: flex; align-items: center; gap: 12px; }
     .head-tel { text-align: right; line-height: 1.2; text-decoration: none; color: var(--ink); }
     .head-tel b { font-size: 1.15rem; letter-spacing: .02em; }
@@ -173,6 +200,10 @@ const orgLd = {
     @media (min-width: 720px) { .sticky-cta { display: none; } }
     @media (max-width: 719px) {
       main { padding-bottom: 92px; } h1 { font-size: 1.4rem; } .head-tel { display: none; }
+      .brand { gap: 8px; font-size: .98rem; }
+      .brand img { width: 34px; height: 34px; }
+      /* 免許番号・創業年はフッターに常時出ているので、狭い画面ではヘッダーから省く */
+      .brand small i { display: none; }
       nav.g .wrap { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; gap: 0 16px; }
       nav.g .wrap::-webkit-scrollbar { display: none; }
       nav.g a { white-space: nowrap; }
@@ -183,7 +214,10 @@ const orgLd = {
   {isSample && <div class="sample-banner">※ サンプルデータ表示中（架空の数値）。実データが入るまで公開しません</div>}
   <header class="site">
     <div class="wrap">
-      <a class="brand" href="/">金沢の不動産相場・売却<small>{COMPANY.name}｜{COMPANY.license}｜創業1989年</small></a>
+      <a class="brand" href="/">
+        <img src="/favicon.svg" alt="" width="40" height="40" decoding="async" />
+        <span>金沢の不動産相場・売却<small>{COMPANY.name}<i>｜{COMPANY.license}｜創業1989年</i></small></span>
+      </a>
       <div class="head-right">
         <a class="head-tel" href={COMPANY.telLink}><b>{COMPANY.tel}</b><small>{COMPANY.hours}</small></a>
         <a class="head-cta" href={COMPANY.line} rel="noopener">LINEで相談</a>

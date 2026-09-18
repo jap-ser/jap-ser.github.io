@@ -52,10 +52,33 @@
 
 ## 設定を変える場所
 
-- 会社情報・LINE・フォームID・GA4：`src/config/site.ts`
+- 会社情報・LINE・フォームID・GA4・検索結果に出すサイト名（`SITE.siteName`）：`src/config/site.ts`
+- ロゴ／ファビコン：`public/favicon.svg` を差し替えて `node scripts/make-icons.mjs`
 - 公開URL：`src/config/site.ts` の `SITE.url`、`astro.config.mjs` の `site`、`public/robots.txt`。独自ドメイン化するときは `public/CNAME` に `baikyaku.jap-ser.com` を1行書く
 - 町名ページを作る最低件数（既定3件/3年）：`scripts/aggregate.mjs` の `MIN_TOWN_3Y`
 - ガイド記事：`src/content/guide/*.md`。本人が目視したら frontmatter の `reviewed: true` にする（それまで noindex）
+
+## 検索結果の見た目（サイト名・アイコン）
+
+Google検索で「GitHub」＋GitHubのアイコンと表示されていた件（2026-09-18 対応）。原因は、
+`jap-ser.github.io` というURLからGoogleがサイト名を `github.io` のブランド名で推測していたこと。
+サイト側からは次の手を入れてある。
+
+- サイト名の申告：トップページだけに `WebSite` 構造化データを出力（`name: ジャパンサービス` /
+  `alternateName: 有限会社ジャパンサービス`）。`og:site_name` も `ジャパンサービス` にそろえた
+- 会社情報：`RealEstateAgent` 構造化データに `logo`（`/logo.png`）と `@id` を追加
+- アイコン：会社マークを `public/favicon.svg` に置き、`node scripts/make-icons.mjs` で
+  `favicon.ico`（16/32/48px）・`icon-192.png`・`icon-512.png`・`apple-touch-icon.png`・`logo.png` を生成。
+  GoogleはまずサイトルートのICOを取りに来るので48px入りの本物のICOにしてある
+- ヘッダー左にも同じマークを表示
+
+反映はGoogleの再クロール待ち（数日〜数週間）。Search Console のURL検査でトップページを
+「インデックス登録をリクエスト」しておくと早い。**サイト名が確実に変わるわけではない**（Googleの判断）。
+確実にしたいなら独自ドメイン `baikyaku.jap-ser.com` への切替が本命。下の「やってもらうこと」のDNS作業。
+
+ロゴマークは実ロゴの画像データがなかったため、サイトのブランドカラー（#2f6f5e）で新規に作った
+家＋Jのマーク。本物のロゴ画像があれば `public/favicon.svg` を差し替えて
+`node scripts/make-icons.mjs` を実行すれば全サイズ作り直せる。
 
 ## データの現状（2026-09-14）
 
