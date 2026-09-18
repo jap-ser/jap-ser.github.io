@@ -7,7 +7,7 @@ golfprime-lp/sns と同じ仕組み。
 
 ## アカウント（2026-09-17 時点）
 - Facebookページ「金沢市の不動産会社 ジャパンサービス」（ページID 61572478978322）
-- Instagram「@jap_ser8552」（同ページに連携）
+- Instagram「japan_service_fudosan」（2026-09-18時点で**ページと未連携**。IG側のアカウントセンターが停止中の旧FBアカウント「シゲヨシ コウタ」に紐付いているのが原因。康太さんがIGアプリのアカウントセンターで旧FBを削除→ページを持つ今のFBを追加すれば連携できる見込み）
 - どちらも康太さんのFacebookアカウントで Meta Business Suite（https://business.facebook.com/latest/composer ）から投稿できる。開いたら左上でこのページが選ばれていることを確認する
 
 ## 会社情報（これ以外の事実は書かない。src/config/site.ts と HANDOVER.md 4章より）
