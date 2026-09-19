@@ -25,6 +25,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-09-19": {
+        "views": 1,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -42,7 +51,19 @@
     "article": "/guide/akiya/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #空き家 #空き家問題 #空き家対策 #実家 #固定資産税 #石川県",
     "reason": "相続と並ぶ売主の二大悩み。金沢の雪という地域性で自分事にしやすい",
-    "status": "draft"
+    "status": "posted",
+    "posted_at": "2026-09-19",
+    "insights": {
+      "2026-09-19": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
+      }
+    }
   },
   {
     "id": "2026-09-20-furuie",
