@@ -7,7 +7,7 @@ golfprime-lp/sns と同じ仕組み。
 
 ## アカウント（2026-09-17 時点）
 - Facebookページ「金沢市の不動産会社 ジャパンサービス」（ページID 61572478978322）
-- Instagram「japan_service_fudosan」（2026-09-18時点で**ページと未連携**。IG側のアカウントセンターが停止中の旧FBアカウント「シゲヨシ コウタ」に紐付いているのが原因。康太さんがIGアプリのアカウントセンターで旧FBを削除→ページを持つ今のFBを追加すれば連携できる見込み）
+- Instagram「japan_service_fudosan」（**ページと未連携**。2026-09-24確認: アカウントセンターには今のFB「ナカハシ コウタ」・IG・ページが同居していて整理済み。IGはビジネスアカウント。それでもBusiness Suiteの「Instagramをリンク」とFacebookページ設定の「リンク済みのアカウント→アカウントをリンク」の両方で「現在、Instagramプロフィールをページにリンクできません」と出る。次の手: iPhoneのInstagramアプリ 設定→ビジネスツールと管理→Facebookページに接続 で試す。別ページに接続済みなら先に解除。それでも駄目なら数日おいて再試行）
 - どちらも康太さんのFacebookアカウントで Meta Business Suite（https://business.facebook.com/latest/composer ）から投稿できる。開いたら左上でこのページが選ばれていることを確認する
 
 ## 会社情報（これ以外の事実は書かない。src/config/site.ts と HANDOVER.md 4章より）
