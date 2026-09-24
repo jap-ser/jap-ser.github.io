@@ -43,6 +43,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-09-25": {
+        "views": 1,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -80,6 +89,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-09-25": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -109,6 +127,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-09-25": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -126,7 +153,19 @@
     "article": "/guide/hiyou-zeikin/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #譲渡所得税 #売却費用 #仲介手数料 #3000万円控除 #家を売る",
     "reason": "「手取り」で比べる考え方は仲介と買取の両方を扱う当社の説明そのもの。数字を出さずに書ける",
-    "status": "draft"
+    "status": "posted",
+    "posted_at": "2026-09-25",
+    "insights": {
+      "2026-09-25": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
+      }
+    }
   },
   {
     "id": "2026-09-22-satei",
