@@ -34,6 +34,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-09-24": {
+        "views": 1,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -62,6 +71,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-09-24": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -81,7 +99,18 @@
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #古家付き土地 #解体 #土地売却 #固定資産税 #石川県",
     "reason": "「解体すべきか」は査定前の典型的な迷い。当社買取（解体込み）の強みが自然に出せる",
     "status": "posted",
-    "posted_at": "2026-09-24"
+    "posted_at": "2026-09-24",
+    "insights": {
+      "2026-09-24": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
+      }
+    }
   },
   {
     "id": "2026-09-21-hiyou-zeikin",
