@@ -20,12 +20,23 @@ const orgLd = {
   '@type': 'RealEstateAgent',
   name: COMPANY.name,
   url: SITE.url,
+  logo: new URL('/img/logo.png', SITE.url).href,
+  image: new URL('/img/logo.png', SITE.url).href,
   telephone: '+81-76-267-8552',
   address: { '@type': 'PostalAddress', addressCountry: 'JP', addressRegion: '石川県', addressLocality: '金沢市', streetAddress: '西都2丁目162番地' },
   openingHours: 'Mo-Fr 09:00-18:00',
   founder: { '@type': 'Person', name: COMPANY.rep },
   sameAs: [COMPANY.website],
   areaServed: CITIES.map((c) => ({ '@type': 'City', name: c.name })),
+};
+// 検索結果に出る「サイト名」の指定（github.io のままだと "GitHub" と表示されるのを防ぐ）
+const siteLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: SITE.siteName,
+  alternateName: ['ジャパンサービス', SITE.shortName, COMPANY.name],
+  url: SITE.url + '/',
+  publisher: { '@type': 'Organization', name: COMPANY.name, logo: { '@type': 'ImageObject', url: new URL('/img/logo.png', SITE.url).href } },
 };
 ---
 <html lang="ja">
@@ -36,13 +47,17 @@ const orgLd = {
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
   {noindex && <meta name="robots" content="noindex" />}
+  {/* アイコンは会社ロゴ（JS GROUPの3つの丸）。Googleの検索結果用に 48px の倍数の ico/png を用意 */}
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
+  <link rel="apple-touch-icon" href="/icon-180.png" />
   <link rel="sitemap" href="/sitemap-index.xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@600;700&family=Noto+Sans+JP:wght@400;500;700;800&display=swap" rel="stylesheet" />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content={SITE.shortName} />
+  <meta property="og:site_name" content={SITE.siteName} />
   <meta property="og:title" content={fullTitle} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
@@ -51,6 +66,7 @@ const orgLd = {
   <meta name="twitter:card" content="summary" />
   {ANALYTICS.searchConsoleMeta && <meta name="google-site-verification" content={ANALYTICS.searchConsoleMeta} />}
   <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(siteLd)} />
   {jsonLd.map((ld) => <script type="application/ld+json" set:html={JSON.stringify(ld)} />)}
   {ANALYTICS.ga4Id && (
     <>
