@@ -1,6 +1,7 @@
 ---
 // 査定・相談フォーム。買取LPと同じ Google Apps Script に JSON を送る（列名も同じ）
 // variant: 'compact'（ヒーロー・町名ページ用の短い版） | 'full'（/contact/ 用）
+// 2026-09-25: compact でも「町名・住所」「今の状況」を聞く（トップから届いた問い合わせに住所が無かったため）
 import { COMPANY, FORM, CITIES } from '../config/site';
 
 interface Props { variant?: 'compact' | 'full'; city?: string; title?: string; note?: string }
@@ -30,14 +31,10 @@ const WHEN = ['未定', '年内（12月まで）', '3か月以内', '半年以�
         {CITY_OPTS.map((c) => <option selected={c === city}>{c}</option>)}
       </select>
     </label>
-    {full && (
-      <label class="lf-field"><span>町名・住所（分かる範囲で）</span><input name="住所" placeholder="例：西都2丁目" /></label>
-    )}
-    {full && (
-      <label class="lf-field"><span>今の状況</span>
-        <select name="状況"><option value="">選んでください</option>{STATUS.map((s) => <option>{s}</option>)}</select>
-      </label>
-    )}
+    <label class="lf-field"><span>町名・住所（分かる範囲で）</span><input name="住所" placeholder="例：西都2丁目 ／ マンション名" autocomplete="street-address" /></label>
+    <label class="lf-field"><span>今の状況</span>
+      <select name="状況"><option value="">選んでください</option>{STATUS.map((s) => <option>{s}</option>)}</select>
+    </label>
     {full && (
       <label class="lf-field"><span>築年数（建物がある場合）</span>
         <select name="築年数">{AGE.map((a, i) => <option value={i === 0 ? '' : a}>{a}</option>)}</select>
