@@ -58,6 +58,8 @@ const orgLd = {
       <script set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${ANALYTICS.ga4Id}');`} />
     </>
   )}
+  {/* 流入経路の控え。最初に開いたページの参照元と入口URLをタブ内に記憶し、フォーム送信時に備考へ添える（GA4が拾えない場合の保険） */}
+  <script is:inline>try{var s=sessionStorage;if(!s.getItem('js_ref')){s.setItem('js_ref',(document.referrer||'(直接・不明)')+' → '+location.href)}}catch(e){}</script>
   <style is:global>
     :root {
       --ink: #1d3348; --brand: #2f6f5e; --brand-deep: #235448; --amber: #c8862c; --cta: #ea5a2a; --cta-deep: #cf4717;

@@ -136,6 +136,11 @@ const WHEN = ['未定', '年内（12月まで）', '3か月以内', '半年以�
       data['送信日時'] = new Date().toLocaleString('ja-JP');
       data['ページ'] = location.href;
       const lines = keys.filter((k) => data[k]).map((k) => `${k}：${data[k]}`);
+      // 流入経路（Base.astro で記憶した「参照元 → 入口URL」）を備考の末尾に添える。お客様向けの控え(lines)には出さない
+      try {
+        const ref = sessionStorage.getItem('js_ref') || '';
+        if (ref) data['備考'] = (data['備考'] ? data['備考'] + '\n' : '') + '[流入] ' + ref;
+      } catch {}
       const btn = form.querySelector<HTMLButtonElement>('.lf-submit')!;
       btn.disabled = true; btn.textContent = '送信中…';
       try {
