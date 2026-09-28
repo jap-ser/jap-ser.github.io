@@ -52,6 +52,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-09-28": {
+        "views": 1,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -98,6 +107,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-09-28": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -136,6 +154,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-09-28": {
+        "views": 2,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -164,6 +191,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-09-28": {
+        "views": 2,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -182,7 +218,19 @@
     "article": "/guide/satei-no-mikata/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #不動産査定 #査定書 #無料査定 #家を売る #石川県",
     "reason": "査定を取る直前の人に届く内容。一括査定サイトより地元で両方できる会社、という差別化",
-    "status": "draft"
+    "status": "posted",
+    "posted_at": "2026-09-28",
+    "insights": {
+      "2026-09-28": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
+      }
+    }
   },
   {
     "id": "2026-09-23-sumikae",

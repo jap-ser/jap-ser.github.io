@@ -62,4 +62,4 @@ golfprime-lp/sns と同じ仕組み。
 - 「FacebookとInstagram用の投稿をカスタマイズ」をオンにすると Facebook / Instagram のタブが出る。
   各タブのテキスト欄にそれぞれ facebook.txt / instagram.txt を入れる
 - 公開後は「他に公開したい投稿はありますか？」ダイアログが出る=公開成功。「後で」で閉じる
-- 投稿は必ず人が確認してから公開する（自動公開しない）。git への commit / push も康太さんの確認後に行う
+- 2026-09-25 康太さん指示「毎回自動にして」: 定期タスク japanservice-sns-post は公開・posts.json更新・git push まで確認なしで自動実行する。宣伝（有料）だけは押さない
