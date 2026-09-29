@@ -61,6 +61,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-09-29": {
+        "views": 1,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -116,6 +125,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-09-29": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -163,6 +181,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-09-29": {
+        "views": 2,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -200,6 +227,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-09-29": {
+        "views": 2,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -229,6 +265,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-09-29": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -246,7 +291,19 @@
     "article": "/guide/sumikae/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #住み替え #買い替え #マイホーム #家を売る #野々市市",
     "reason": "売主であり買主にもなる層。買取で日程を確定できる提案が当社ならではの解決策",
-    "status": "draft"
+    "status": "posted",
+    "posted_at": "2026-09-29",
+    "insights": {
+      "2026-09-29": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
+      }
+    }
   },
   {
     "id": "2026-09-24-loan",
