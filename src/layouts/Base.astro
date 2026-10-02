@@ -72,6 +72,8 @@ const siteLd = {
     <>
       <script async src={`https://www.googletagmanager.com/gtag/js?id=${ANALYTICS.ga4Id}`}></script>
       <script set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${ANALYTICS.ga4Id}');`} />
+      {/* LINEボタンのクリック計測。どのボタンか（置き場所）を place に入れる */}
+      <script set:html={`document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a||a.href.indexOf(${JSON.stringify(COMPANY.line)})!==0)return;var p=a.closest('.sticky-cta,header,footer,.lead-form,[class*=nudge],[class*=cta]');try{gtag('event','line_click',{page:location.pathname,place:p?(p.tagName==='HEADER'?'header':p.tagName==='FOOTER'?'footer':p.className.split(' ')[0]):'body',transport_type:'beacon'})}catch(x){}},true);`} />
     </>
   )}
   {/* 流入経路の控え。最初に開いたページの参照元と入口URLをタブ内に記憶し、フォーム送信時に備考へ添える（GA4が拾えない場合の保険） */}
