@@ -88,6 +88,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-04": {
+        "views": 1,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -170,6 +179,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-04": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -244,6 +262,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-04": {
+        "views": 2,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -308,6 +335,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-04": {
+        "views": 2,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -364,6 +400,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-04": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -410,6 +455,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-04": {
+        "views": 1,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -428,7 +482,19 @@
     "article": "/guide/loan-zandaka/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #住宅ローン #残債 #抵当権 #家を売る #石川県",
     "reason": "「ローンがあるから売れない」と思い込んで相談に来ない層への声かけ",
-    "status": "draft"
+    "status": "posted",
+    "posted_at": "2026-10-04",
+    "insights": {
+      "2026-10-04": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
+      }
+    }
   },
   {
     "id": "2026-09-25-rikon",
