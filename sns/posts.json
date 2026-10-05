@@ -545,7 +545,8 @@
     "article": "/guide/kyoukai-sokuryou/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #境界 #測量 #確定測量 #土地売却 #相続した土地 #石川県",
     "reason": "未使用テーマ。査定前につまずきやすい実務の壁で、買取で測量を引き継げる当社の強みが出せる",
-    "status": "draft"
+    "status": "scheduled",
+    "scheduled_for": "2026-10-07 20:00"
   },
   {
     "id": "2026-09-28-kyouyuu",
@@ -562,7 +563,8 @@
     "article": "/guide/tochi-bunkatsu/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #共有名義 #分筆 #広い土地 #土地売却 #相続 #石川県",
     "reason": "未使用テーマ。共有者全員の同意という入口の壁を示すと、早めの相談につながる",
-    "status": "draft"
+    "status": "scheduled",
+    "scheduled_for": "2026-10-08 20:00"
   },
   {
     "id": "2026-09-29-nouchi",
@@ -578,7 +580,8 @@
     "article": "/guide/nouchi/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #農地 #田んぼ #農地転用 #市街化調整区域 #土地売却 #石川県",
     "reason": "未使用テーマ。金沢近郊に多い農地の相談で、手続きの時間を先に示すと相談が早まる",
-    "status": "draft"
+    "status": "scheduled",
+    "scheduled_for": "2026-10-09 20:00"
   },
   {
     "id": "2026-09-30-akitenpo",
@@ -595,7 +598,8 @@
     "article": "/guide/akitenpo/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #空き店舗 #倉庫 #事業用不動産 #廃業 #工場 #石川県",
     "reason": "未使用テーマ。買取再販の強みが最も自然に出る分野で、事業者層にも届く",
-    "status": "draft"
+    "status": "scheduled",
+    "scheduled_for": "2026-10-10 20:00"
   },
   {
     "id": "2026-10-01-yuki-tenken",
@@ -611,7 +615,8 @@
     "article": "/guide/enpou/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #空き家 #雪 #実家 #遠方 #空き家管理 #石川県",
     "reason": "季節ネタ（雪の前の空き家点検）。遠方の相続人向け記事と組み合わせ、冬前の行動を促す",
-    "status": "draft"
+    "status": "scheduled",
+    "scheduled_for": "2026-10-11 20:00"
   },
   {
     "id": "2026-10-02-souzoku-touki",
