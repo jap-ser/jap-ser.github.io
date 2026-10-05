@@ -510,7 +510,8 @@
     "article": "/guide/rikon/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #離婚 #財産分与 #共有名義 #ペアローン #家を売る #石川県",
     "reason": "未使用テーマ。感情と資金が絡む相談で、内覧なしの買取が当社の差別化になる",
-    "status": "draft"
+    "status": "scheduled",
+    "scheduled_for": "2026-10-05 20:00"
   },
   {
     "id": "2026-09-26-shisetsu",
@@ -527,7 +528,8 @@
     "article": "/guide/shisetsu/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #実家 #施設入所 #成年後見 #家族信託 #空き家 #石川県",
     "reason": "未使用テーマ。年々増える相談で、「元気なうちに」の一言が行動のきっかけになる",
-    "status": "draft"
+    "status": "scheduled",
+    "scheduled_for": "2026-10-06 20:00"
   },
   {
     "id": "2026-09-27-kyoukai",
