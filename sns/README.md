@@ -5,6 +5,16 @@ golfprime-lp/sns と同じ仕組み。
 
 ※ 同じリポジトリの `scripts/social/`（run-social.bat）は「町名別の相場カード」を Graph API で自動投稿する別の仕組み。こちら（sns/）は記事ベースの投稿を Meta Business Suite から手で行う用。混ぜないこと。
 
+## 2026-10-05 から「予約投稿」方式（康太さん指示「まとめて予約投稿にして」）
+- 毎日1件ずつ公開する方式は、PC・アプリが動いていない日／Fableの利用枠切れ／自動モードの安全判定で公開が止まる日に抜けた（9/18〜10/4 の17日で7件）。そこで Meta Business Suite の「日時を設定」で先の日付の 20:00 にまとめて予約する方式に変えた。予約済みの投稿は Meta 側が時間どおりに出すので、PCが止まっていても出る
+- posts.json の status: draft（未予約）→ scheduled（予約済み。scheduled_for に "YYYY-MM-DD HH:MM"）→ posted（公開確認済み）
+- 予約を記録する: `python sns/mark_scheduled.py <id> "YYYY-MM-DD 20:00"`、一覧: `python sns/mark_scheduled.py --list`
+- 2026-10-05 に 21件を 10/5〜10/25 の毎日 20:00 に予約済み（予約一覧で21件・重複なし・本文末尾まで入っていることを確認）
+- 予約済みの確認: https://business.facebook.com/latest/posts/scheduled_posts?asset_id=474278865778411 （「日時指定済み」タブ。下までスクロールすると全件出る）
+- 予約済み投稿の本文を直す: 一覧の行の「…」→ 右矢印キーでサブメニュー → 「投稿の編集」（Enter）→ 直して「日時を指定」。サブメニューに「投稿を削除」もあるので座標クリックはしない
+- 毎日20時の japanservice-sns-post は「公開されたかの確認・数字の記録・予約の補充（残り3件以下になったら最大7件）」だけを行う。**scheduled の投稿をもう一度投稿しない**
+- 予約の操作手順と、はまりどころ（本文は貼り付けで入れる／日時はTabキーで順に入れる／Edgeが他の窓の裏に完全に隠れると操作が止まる）は下の「予約投稿の操作メモ」
+
 ## アカウント（2026-09-17 時点）
 - Facebookページ「金沢市の不動産会社 ジャパンサービス」（ページID 61572478978322）
 - Instagram「japan_service_fudosan」（**ページと未連携**。2026-09-24確認: アカウントセンターには今のFB「ナカハシ コウタ」・IG・ページが同居していて整理済み。IGはビジネスアカウント。それでもBusiness Suiteの「Instagramをリンク」とFacebookページ設定の「リンク済みのアカウント→アカウントをリンク」の両方で「現在、Instagramプロフィールをページにリンクできません」と出る。次の手: iPhoneのInstagramアプリ 設定→ビジネスツールと管理→Facebookページに接続 で試す。別ページに接続済みなら先に解除。それでも駄目なら数日おいて再試行）
@@ -65,3 +75,18 @@ golfprime-lp/sns と同じ仕組み。
 - 2026-09-25 康太さん指示「毎回自動にして」: 定期タスク japanservice-sns-post は公開・posts.json更新・git push まで確認なしで自動実行する。宣伝（有料）だけは押さない
 - 2026-09-30: 「ローン返済中でも売れます」（2026-09-24-loan）は、画像と本文まで入れたが「公開する」のクリックが自動モードの安全判定で止められ、未公開。Meta Business Suite の「下書き」に保存してある（posts.json は draft のまま）。康太さんが下書きから公開した場合は、posts.json を posted に直してから次の投稿へ進むこと（公開済み一覧に同じ本文があれば二重投稿しない。残った下書きは康太さんに確認）
 - 2026-10-04: 上記の下書きを「下書き」タブ →「投稿の編集」→「公開する」で公開できた（画像・本文は下書きのまま使えるので再アップロード不要）。Business Suite の下書きは0件に戻り、posts.json も posted に更新済み。下書き編集画面には「宣伝」スイッチ自体が出ない
+
+## 予約投稿の操作メモ（2026-10-05 に21件予約して分かったこと）
+1件ごとの流れ: composer を開く → 画像アップロード → 本文 → 「日時を設定」オン → 日付・時刻 → 「日時を指定」。
+- **本文は type（1文字ずつ入力）で入れない**。URLの行のあたりで末尾が欠けることがある（10/5 20時分は電話番号が欠け、あとで編集して直した）。javascript_tool で貼り付けイベントを送ると全文が一度に入る:
+  `const e=document.querySelector('[contenteditable=true]'); e.focus(); const dt=new DataTransfer(); dt.setData('text/plain', text); e.dispatchEvent(new ClipboardEvent('paste',{clipboardData:dt,bubbles:true,cancelable:true}));`
+  入れたあと `e.textContent.length`（改行を除いた文字数）と `e.querySelectorAll('[data-block=true]').length`（行数）を facebook.txt と照合する。貼り付けは「追記」になるので、入れ直すときは本文欄をクリック → Ctrl+A → Delete で空にしてから
+- 「日時を設定」スイッチは `document.querySelector('input[aria-label="日時を設定"]').click()` でオンにできる
+- **日時はキーボードで順に入れる**: 日付欄（placeholder が yyyy/mm/dd）を実クリック → Ctrl+A → `2026/10/12` → Tab（日付が確定し「時間」欄へ）→ `20` → Tab（「分」欄へ）→ `00`。JS の focus() だけではキー入力が届かないので、最初の1回は実クリックが必要
+- 日付欄の位置はスクロールで動く。クリック前に、日付欄の祖先のスクロール領域を全部いちばん下まで送ってから（`scrollTop = scrollHeight`）、getBoundingClientRect で位置を取ってクリックする。ref 指定のクリックや scroll_to 直後のクリックは外れることがある
+- クリックやキー入力は取りこぼされることがあるので、「いま日付欄にフォーカスがあるか」「日付・20:0・本文の文字数と行数・画像あり・宣伝オフ」を javascript_tool で確かめ、違っていたら `throw` する（browser_batch は最初のエラーで止まるので、確認に通ったときだけ「日時を指定」が押される）
+- 「日時を指定」を押したあとは、「投稿の日時が指定されました」のダイアログが出るか、カレンダー（content_calendar）に移動すれば成功。ダイアログには有料の宣伝（¥500など）の案内が付くことがあるので「宣伝」は押さない（閉じなくても、次の composer を開けばよい）
+- javascript_tool の中で `await setTimeout` を使わない（裏に回ったタブではタイマーが遅くなり45秒で時間切れになる）
+- **Edge が他のウィンドウ（Claudeアプリなど）の裏に完全に隠れる、または自分のタブが前面でないと、document.visibilityState が hidden になり、クリック・キー入力・スクリーンショットが止まったり取りこぼされたりする**。対策: (1) 自分のタブに目印のタイトルを付け、Windows の UI Automation（TabItem を名前で探して SelectionItemPattern.Select()）で前面のタブにする（キー送信でのタブ切替はClaudeアプリにキーが飛ぶのでやらない）。(2) Edge のウィンドウを SetWindowPos（最前面・フォーカスは奪わない）で画面の右端に 70px だけ見える位置に置く。終わったら元の位置・最大化に戻す
+- 他のセッションが同じ Edge を使っていると、タブの前面を取り合う。重い作業は他のブラウザ作業と時間をずらす
+- composer に入力途中の内容があるままタブを閉じたり移動したりすると「このサイトを離れますか？」で止まる

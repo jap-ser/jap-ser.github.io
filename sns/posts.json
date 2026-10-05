@@ -738,7 +738,8 @@
     "article": "/kaitori-lp/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #固定資産税 #年内売却 #不動産買取 #空き家 #遊休地 #石川県",
     "reason": "季節ネタ。固定資産税の課税基準日（1月1日）から逆算し、年内引渡しを促す買取LPの訴求を使う",
-    "status": "draft"
+    "status": "scheduled",
+    "scheduled_for": "2026-10-18 20:00"
   },
   {
     "id": "2026-10-09-furuie-nedan",
@@ -754,7 +755,8 @@
     "article": "/guide/furuie/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #古家付き土地 #解体費 #土地売却 #築古 #実家じまい #石川県",
     "reason": "閲覧があった古家テーマ（2回）の別角度。前回は「解体するか」、今回は「値段の決まり方」",
-    "status": "draft"
+    "status": "scheduled",
+    "scheduled_for": "2026-10-19 20:00"
   },
   {
     "id": "2026-10-10-urenai-tochi",
@@ -771,7 +773,8 @@
     "article": "/guide/urenai-tochi/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #売れない土地 #いらない土地 #土地売却 #相続土地国庫帰属制度 #負動産 #石川県",
     "reason": "未使用テーマ（10/2公開の新記事）。「売れない土地」は検索されやすい悩みで、買取と仲介の両方を扱う当社に合う",
-    "status": "draft"
+    "status": "scheduled",
+    "scheduled_for": "2026-10-20 20:00"
   },
   {
     "id": "2026-10-11-shutokuhi",
@@ -787,7 +790,8 @@
     "article": "/guide/hiyou-zeikin/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #譲渡所得税 #取得費 #売却費用 #3000万円控除 #家を売る",
     "reason": "閲覧があった費用・税金テーマ（2回）の別角度。前回は費用の全体像、今回は「取得費の書類」に絞る",
-    "status": "draft"
+    "status": "scheduled",
+    "scheduled_for": "2026-10-21 20:00"
   },
   {
     "id": "2026-10-12-sumikae-dandori",
@@ -804,7 +808,8 @@
     "article": "/guide/sumikae/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #住み替え #買い替え #マイホーム #家を売る #資金計画 #野々市市",
     "reason": "閲覧があった住み替えテーマ（1回）の別角度。前回は「売り先行か買い先行か」、今回は段取りの順番",
-    "status": "draft"
+    "status": "scheduled",
+    "scheduled_for": "2026-10-22 20:00"
   },
   {
     "id": "2026-10-13-wakeari",
@@ -820,7 +825,8 @@
     "article": "/guide/jiko-bukken/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #訳あり物件 #事故物件 #告知義務 #不動産買取 #空き家 #石川県",
     "reason": "未使用テーマ（10/2公開の新記事）。人に相談しにくい悩みで、広告を出さない買取という当社の選択肢が伝えやすい",
-    "status": "draft"
+    "status": "scheduled",
+    "scheduled_for": "2026-10-23 20:00"
   },
   {
     "id": "2026-10-14-souzoku-satei",
@@ -837,7 +843,8 @@
     "article": "/guide/satei-no-mikata/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #相続 #実家 #不動産査定 #遺産分割 #実家じまい #石川県",
     "reason": "閲覧があった相続テーマ（1回）を、2週間使っていない査定の記事と組み合わせる。相続の記事自体は10/2分で使用済み",
-    "status": "draft"
+    "status": "scheduled",
+    "scheduled_for": "2026-10-24 20:00"
   },
   {
     "id": "2026-10-15-loan-zandaka-aki",
@@ -853,6 +860,7 @@
     "article": "/guide/loan-zandaka/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #住宅ローン #ローン残高 #年末残高証明書 #住み替え #家を売る",
     "reason": "季節ネタ（秋〜年末は住宅ローンの年末残高証明書が届く時期）。残高と相場を見比べるきっかけにする",
-    "status": "draft"
+    "status": "scheduled",
+    "scheduled_for": "2026-10-25 20:00"
   }
 ]
