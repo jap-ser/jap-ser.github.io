@@ -633,7 +633,8 @@
     "article": "/guide/souzoku/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #相続 #相続登記 #名義変更 #相続不動産 #実家 #石川県",
     "reason": "投稿5件中で唯一2回以上見られた相続記事を、登記の義務化という別の切り口で再利用",
-    "status": "draft"
+    "status": "scheduled",
+    "scheduled_for": "2026-10-12 20:00"
   },
   {
     "id": "2026-10-03-akiya-kasu-uru",
@@ -649,7 +650,8 @@
     "article": "/guide/akiya/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #空き家 #空き家活用 #賃貸経営 #実家 #空き家対策 #石川県",
     "reason": "空き家は相続と並ぶ入口テーマ。前回の「負担」でなく「貸す・売る」の判断軸に切り替えて再利用",
-    "status": "draft"
+    "status": "scheduled",
+    "scheduled_for": "2026-10-13 20:00"
   },
   {
     "id": "2026-10-04-kaitori-vs-chukai",
@@ -666,7 +668,8 @@
     "article": "/kaitori/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #不動産買取 #仲介 #売却相談 #手取り #石川県",
     "reason": "費用・手取りの記事が閲覧2で上位。買取と仲介の比較ページで「費用で比べる」切り口を続ける",
-    "status": "draft"
+    "status": "scheduled",
+    "scheduled_for": "2026-10-14 20:00"
   },
   {
     "id": "2026-10-05-owner-change",
@@ -682,7 +685,8 @@
     "article": "/guide/chintai-chu/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #オーナーチェンジ #アパート売却 #収益物件 #賃貸経営 #大家 #石川県",
     "reason": "未使用テーマ。賃貸中の戸建・アパートを持つオーナー層に届く",
-    "status": "draft"
+    "status": "scheduled",
+    "scheduled_for": "2026-10-15 20:00"
   },
   {
     "id": "2026-10-06-souba-choumei",
@@ -699,7 +703,8 @@
     "article": "/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #不動産相場 #坪単価 #査定 #土地売却 #戸建売却 #石川県",
     "reason": "査定記事は本日投稿で数字待ち。査定の前段にあたる「相場の見方」で相場サイト本体へ誘導する",
-    "status": "draft"
+    "status": "scheduled",
+    "scheduled_for": "2026-10-16 20:00"
   },
   {
     "id": "2026-10-07-nini-baikyaku",
@@ -715,7 +720,8 @@
     "article": "/guide/nini-baikyaku/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #任意売却 #住宅ローン #ローン滞納 #競売 #売却相談 #石川県",
     "reason": "未使用テーマ。人に聞きにくい悩みで、秘密で相談できる点が問い合わせの後押しになる",
-    "status": "draft"
+    "status": "scheduled",
+    "scheduled_for": "2026-10-17 20:00"
   },
   {
     "id": "2026-10-08-nennai-hikiwatashi",
