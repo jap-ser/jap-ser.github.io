@@ -97,6 +97,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-05": {
+        "views": 1,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -188,6 +197,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-05": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -271,6 +289,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-05": {
+        "views": 2,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -344,6 +371,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-05": {
+        "views": 2,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -409,6 +445,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-05": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -464,6 +509,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-05": {
+        "views": 1,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -493,6 +547,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-05": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -510,8 +573,20 @@
     "article": "/guide/rikon/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #離婚 #財産分与 #共有名義 #ペアローン #家を売る #石川県",
     "reason": "未使用テーマ。感情と資金が絡む相談で、内覧なしの買取が当社の差別化になる",
-    "status": "scheduled",
-    "scheduled_for": "2026-10-05 20:00"
+    "status": "posted",
+    "scheduled_for": "2026-10-05 20:00",
+    "posted_at": "2026-10-05",
+    "insights": {
+      "2026-10-05": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
+      }
+    }
   },
   {
     "id": "2026-09-26-shisetsu",
