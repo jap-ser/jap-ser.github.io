@@ -106,6 +106,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-09": {
+        "views": 1,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -206,6 +215,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-09": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -298,6 +316,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-09": {
+        "views": 2,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -380,6 +407,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-09": {
+        "views": 2,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -454,6 +490,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-09": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -518,6 +563,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-09": {
+        "views": 1,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -556,6 +610,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-09": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -585,6 +648,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-09": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -605,7 +677,18 @@
     "reason": "未使用テーマ。年々増える相談で、「元気なうちに」の一言が行動のきっかけになる",
     "status": "posted",
     "scheduled_for": "2026-10-06 20:00",
-    "posted_at": "2026-10-06"
+    "posted_at": "2026-10-06",
+    "insights": {
+      "2026-10-09": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
+      }
+    }
   },
   {
     "id": "2026-09-27-kyoukai",
@@ -623,7 +706,18 @@
     "reason": "未使用テーマ。査定前につまずきやすい実務の壁で、買取で測量を引き継げる当社の強みが出せる",
     "status": "posted",
     "scheduled_for": "2026-10-07 20:00",
-    "posted_at": "2026-10-07"
+    "posted_at": "2026-10-07",
+    "insights": {
+      "2026-10-09": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
+      }
+    }
   },
   {
     "id": "2026-09-28-kyouyuu",
@@ -642,7 +736,18 @@
     "reason": "未使用テーマ。共有者全員の同意という入口の壁を示すと、早めの相談につながる",
     "status": "posted",
     "scheduled_for": "2026-10-08 20:00",
-    "posted_at": "2026-10-08"
+    "posted_at": "2026-10-08",
+    "insights": {
+      "2026-10-09": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
+      }
+    }
   },
   {
     "id": "2026-09-29-nouchi",
@@ -658,8 +763,20 @@
     "article": "/guide/nouchi/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #農地 #田んぼ #農地転用 #市街化調整区域 #土地売却 #石川県",
     "reason": "未使用テーマ。金沢近郊に多い農地の相談で、手続きの時間を先に示すと相談が早まる",
-    "status": "scheduled",
-    "scheduled_for": "2026-10-09 20:00"
+    "status": "posted",
+    "scheduled_for": "2026-10-09 20:00",
+    "posted_at": "2026-10-09",
+    "insights": {
+      "2026-10-09": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
+      }
+    }
   },
   {
     "id": "2026-09-30-akitenpo",
