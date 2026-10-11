@@ -124,6 +124,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-11": {
+        "views": 1,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -242,6 +251,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-11": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -352,6 +370,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-11": {
+        "views": 2,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -452,6 +479,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-11": {
+        "views": 2,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -544,6 +580,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-11": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -626,6 +671,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-11": {
+        "views": 1,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -682,6 +736,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-11": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -729,6 +792,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-11": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -768,6 +840,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-11": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -799,6 +880,15 @@
         "link_clicks": null
       },
       "2026-10-10": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
+      },
+      "2026-10-11": {
         "views": 0,
         "viewers": 0,
         "likes": 0,
@@ -845,6 +935,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-11": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -883,6 +982,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-11": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -913,6 +1021,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-11": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -930,8 +1047,20 @@
     "article": "/guide/enpou/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #空き家 #雪 #実家 #遠方 #空き家管理 #石川県",
     "reason": "季節ネタ（雪の前の空き家点検）。遠方の相続人向け記事と組み合わせ、冬前の行動を促す",
-    "status": "scheduled",
-    "scheduled_for": "2026-10-11 20:00"
+    "status": "posted",
+    "scheduled_for": "2026-10-11 20:00",
+    "posted_at": "2026-10-11",
+    "insights": {
+      "2026-10-11": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
+      }
+    }
   },
   {
     "id": "2026-10-02-souzoku-touki",
