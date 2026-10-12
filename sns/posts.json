@@ -133,6 +133,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-12": {
+        "views": 1,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -260,6 +269,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-12": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -379,6 +397,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-12": {
+        "views": 2,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -488,6 +515,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-12": {
+        "views": 2,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -589,6 +625,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-12": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -680,6 +725,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-12": {
+        "views": 1,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -745,6 +799,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-12": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -801,6 +864,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-12": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -849,6 +921,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-12": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -889,6 +970,15 @@
         "link_clicks": null
       },
       "2026-10-11": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
+      },
+      "2026-10-12": {
         "views": 0,
         "viewers": 0,
         "likes": 0,
@@ -944,6 +1034,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-12": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -991,6 +1090,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-12": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -1030,6 +1138,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-12": {
+        "views": 1,
+        "viewers": 1,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -1059,6 +1176,15 @@
         "shares": 0,
         "saves": 0,
         "link_clicks": null
+      },
+      "2026-10-12": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
       }
     }
   },
@@ -1077,8 +1203,20 @@
     "article": "/guide/souzoku/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #相続 #相続登記 #名義変更 #相続不動産 #実家 #石川県",
     "reason": "投稿5件中で唯一2回以上見られた相続記事を、登記の義務化という別の切り口で再利用",
-    "status": "scheduled",
-    "scheduled_for": "2026-10-12 20:00"
+    "status": "posted",
+    "scheduled_for": "2026-10-12 20:00",
+    "posted_at": "2026-10-12",
+    "insights": {
+      "2026-10-12": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
+      }
+    }
   },
   {
     "id": "2026-10-03-akiya-kasu-uru",
