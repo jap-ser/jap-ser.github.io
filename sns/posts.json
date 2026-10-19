@@ -1841,8 +1841,20 @@
     "article": "/guide/furuie/",
     "hashtags": "#金沢不動産 #不動産売却 #金沢市 #ジャパンサービス #古家付き土地 #解体費 #土地売却 #築古 #実家じまい #石川県",
     "reason": "閲覧があった古家テーマ（2回）の別角度。前回は「解体するか」、今回は「値段の決まり方」",
-    "status": "scheduled",
-    "scheduled_for": "2026-10-19 20:00"
+    "status": "posted",
+    "scheduled_for": "2026-10-19 20:00",
+    "posted_at": "2026-10-19",
+    "insights": {
+      "2026-10-19": {
+        "views": 0,
+        "viewers": 0,
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "saves": 0,
+        "link_clicks": null
+      }
+    }
   },
   {
     "id": "2026-10-10-urenai-tochi",
