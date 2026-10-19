@@ -3,7 +3,7 @@ import { getCollection, render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import CtaBlock from '../../components/CtaBlock.astro';
-import { breadcrumbLd } from '../../lib/seo';
+import { breadcrumbLd, faqLd } from '../../lib/seo';
 
 export async function getStaticPaths() {
   const guides = await getCollection('guide');
@@ -13,8 +13,12 @@ const { g } = Astro.props;
 const { Content } = await render(g);
 const crumbs = [{ name: 'トップ', href: '/' }, { name: '状況別ガイド', href: '/guide/' }, { name: g.data.title, href: `/guide/${g.id}/` }];
 const others = (await getCollection('guide')).filter((x) => x.id !== g.id).sort((a, b) => a.data.order - b.data.order).slice(0, 6);
+// 本文の「**Q. 質問**」「A. 回答」の組を FAQPage 構造化データにする（リンクや強調記号は外す）
+const plain = (s: string) => s.replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/\*\*/g, '').trim();
+const qa = [...(g.body ?? '').matchAll(/\*\*Q\.\s*([^\n]+?)\*\*\s*\r?\nA\.\s*([^\n]+)/g)].map((m) => ({ q: plain(m[1]), a: plain(m[2]) }));
+const jsonLd = qa.length ? [breadcrumbLd(crumbs), faqLd(qa)] : [breadcrumbLd(crumbs)];
 ---
-<Base title={g.data.title} description={g.data.description} path={`/guide/${g.id}/`} jsonLd={[breadcrumbLd(crumbs)]} noindex={!g.data.reviewed}>
+<Base title={g.data.title} description={g.data.description} path={`/guide/${g.id}/`} jsonLd={jsonLd} noindex={!g.data.reviewed}>
   <Breadcrumb items={crumbs} />
   <article class="prose">
     <h1>{g.data.title}</h1>
