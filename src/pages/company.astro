@@ -7,7 +7,7 @@ import { breadcrumbLd } from '../lib/seo';
 const crumbs = [{ name: 'トップ', href: '/' }, { name: '会社概要', href: '/company/' }];
 const desc = `${COMPANY.name}の会社概要。${COMPANY.founded}設立、${COMPANY.license}。金沢市西都で売買仲介・買取再販・賃貸管理を行う地元の不動産会社です。`;
 ---
-<Base title="会社概要・代表紹介" description={desc} path="/company/" jsonLd={[breadcrumbLd(crumbs)]}>
+<Base title="会社概要・代表紹介（金沢市の不動産会社）" description={desc} path="/company/" jsonLd={[breadcrumbLd(crumbs)]}>
   <Breadcrumb items={crumbs} />
   <h1>会社概要・代表紹介</h1>
   <div class="table-wrap">
