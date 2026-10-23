@@ -30,11 +30,20 @@ if (s.house.y3.count) parts.push(`戸建は${yen(s.house.y3.medianPrice)}（${s.
 if (s.condo.y3.count) parts.push(`マンションは${tsubo(s.condo.y3.medianTsubo)}（${s.condo.y3.count}件）`);
 const desc = text?.summary ?? `${c.name}${t.name}の不動産相場。国土交通省の取引データでは${parts.join('、')}。四半期推移と売却・買取の考え方を掲載。`;
 const crumbs = [{ name: 'トップ', href: '/' }, { name: `${c.name}の相場`, href: `/${c.key}/` }, { name: t.name, href: `/${c.key}/${t.slug}/` }];
+// 冒頭の1文要約（AI検索・検索結果の抜粋向け。数字は aggregated.json から自動）
+const man1 = (v: number) => v.toLocaleString('ja-JP', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const ansParts: string[] = [];
+if (s.land.y3.count && s.land.y3.medianTsubo != null) ansParts.push(`土地相場は坪単価約${man1(s.land.y3.medianTsubo)}万円（直近3年の取引${s.land.y3.count}件の中央値）`);
+if (s.house.y3.count && s.house.y3.medianPrice != null) ansParts.push(`戸建${ansParts.length ? 'は' : '相場は'}約${yen(s.house.y3.medianPrice)}（${ansParts.length ? '' : '直近3年の取引'}${s.house.y3.count}件${ansParts.length ? '' : 'の中央値'}）`);
+if (s.condo.y3.count && s.condo.y3.medianTsubo != null) ansParts.push(`マンション${ansParts.length ? 'は' : '相場は'}坪単価約${man1(s.condo.y3.medianTsubo)}万円（${ansParts.length ? '' : '直近3年の取引'}${s.condo.y3.count}件${ansParts.length ? '' : 'の中央値'}）`);
+const maxCount = Math.max(s.land.y3.count || 0, s.house.y3.count || 0, s.condo.y3.count || 0);
+const answer = ansParts.length ? `${c.name}${t.name}の${ansParts.join('、')}です。${maxCount < 5 ? '件数が少ないため参考値としてご覧ください。' : ''}` : '';
 const latestQ = t.quarterly?.filter((q) => q.land.count + q.house.count + q.condo.count > 0).slice(-1)[0];
 ---
 <Base title={title} description={desc} path={`/${c.key}/${t.slug}/`} jsonLd={[breadcrumbLd(crumbs)]}>
   <Breadcrumb items={crumbs} />
   <h1>{c.name}{t.name}の不動産相場（土地・戸建・マンション）</h1>
+  {answer && <p class="answer">{answer}</p>}
   <p class="lead">国土交通省の不動産取引価格情報から、{t.name}の取引を集計しました。直近3年の取引は{s.total3y}件（うち直近1年{s.total1y}件）。最新データ期：{agg.latestPeriodLabel}、{agg.generatedAt}更新。</p>
 
   <div class="kpi">
