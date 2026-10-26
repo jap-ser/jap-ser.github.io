@@ -47,7 +47,23 @@ export const sqm = (v?: number | null) => (v == null ? '—' : `${v.toLocaleStri
 export const pct = (v?: number | null) => (v == null ? null : `${v > 0 ? '+' : ''}${v.toFixed(1)}%`);
 export const nendo = (y?: number | null) => (y == null ? '—' : `${y}年頃`);
 
-// 町名ページの「近くの町名」: 同じ市町で件数が多い順に n 件（自分を除く）
+// 町名の「幹」（末尾の 町 を外したもの）。泉野町→泉野、泉野出町→泉野出
+function townStem(name: string): string {
+  return name.replace(/町$/, '');
+}
+
+// 名前の頭2文字が同じ町名同士は地理的にも隣接していることが多い（泉野町/泉野出町、畝田東/畝田中/畝田西、金石北/金石東、額新町/額新保 など）
+function isSimilarName(a: Town, b: Town): boolean {
+  const sa = townStem(a.name);
+  const sb = townStem(b.name);
+  if (sa.length < 2 || sb.length < 2) return false;
+  return sa.startsWith(sb.slice(0, 2)) || sb.startsWith(sa.slice(0, 2));
+}
+
+// 町名ページの「近くの町名」: 名前が似ている（隣接しやすい）町名を先頭に、残りは同じ市町で件数が多い順に、合計 n 件（自分を除く）
 export function relatedTowns(city: City, self: Town, n = 8): Town[] {
-  return townsWithPage(city).filter((t) => t.slug !== self.slug).slice(0, n);
+  const others = townsWithPage(city).filter((t) => t.slug !== self.slug);
+  const similar = others.filter((t) => isSimilarName(self, t)).slice(0, 4);
+  const rest = others.filter((t) => !similar.includes(t));
+  return [...similar, ...rest].slice(0, n);
 }
