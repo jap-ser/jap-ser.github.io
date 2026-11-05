@@ -81,6 +81,8 @@ golfprime-lp/sns と同じ仕組み。
 - **本文は type（1文字ずつ入力）で入れない**。URLの行のあたりで末尾が欠けることがある（10/5 20時分は電話番号が欠け、あとで編集して直した）。javascript_tool で貼り付けイベントを送ると全文が一度に入る:
   `const e=document.querySelector('[contenteditable=true]'); e.focus(); const dt=new DataTransfer(); dt.setData('text/plain', text); e.dispatchEvent(new ClipboardEvent('paste',{clipboardData:dt,bubbles:true,cancelable:true}));`
   入れたあと `e.textContent.length`（改行を除いた文字数）と `e.querySelectorAll('[data-block=true]').length`（行数）を facebook.txt と照合する。貼り付けは「追記」になるので、入れ直すときは本文欄をクリック → Ctrl+A → Delete で空にしてから
+- 本文の照合は文字数・行数だけでなく**文字コードの合計**も比べる（2026-11-05: 貼り付け用に書き写した本文で「原則」が別の漢字に化けたが、文字数は同じだった。Python `sum(ord(c) for c in text.replace('\n',''))` と JS `[...e.textContent].reduce((a,c)=>a+c.codePointAt(0),0)` が一致しなければ予約しない）
+- 「時間」「分」欄の値は `value` ではなく `aria-valuenow`（20 と 0）で読める。予約後は「投稿の日時が指定されました」のダイアログ（「後で」で閉じる）か、カレンダーへの移動のどちらかになる
 - 「日時を設定」スイッチは `document.querySelector('input[aria-label="日時を設定"]').click()` でオンにできる
 - **日時はキーボードで順に入れる**: 日付欄（placeholder が yyyy/mm/dd）を実クリック → Ctrl+A → `2026/10/12` → Tab（日付が確定し「時間」欄へ）→ `20` → Tab（「分」欄へ）→ `00`。JS の focus() だけではキー入力が届かないので、最初の1回は実クリックが必要
 - 日付欄の位置はスクロールで動く。クリック前に、日付欄の祖先のスクロール領域を全部いちばん下まで送ってから（`scrollTop = scrollHeight`）、getBoundingClientRect で位置を取ってクリックする。ref 指定のクリックや scroll_to 直後のクリックは外れることがある
