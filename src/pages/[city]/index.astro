@@ -7,6 +7,7 @@ import CtaBlock from '../../components/CtaBlock.astro';
 import { CITIES, DATA_SOURCE } from '../../config/site';
 import { agg, townsWithPage, townsWithoutPage, textFor, tsubo, yen } from '../../lib/data';
 import { breadcrumbLd } from '../../lib/seo';
+import { getCollection } from 'astro:content';
 
 export function getStaticPaths() {
   return CITIES.filter((c) => agg.cities[c.key]).map((c) => ({ params: { city: c.key } }));
@@ -19,6 +20,11 @@ const text = textFor(c.key);
 const title = `${c.name}の不動産相場（土地・戸建・マンション）と売却・買取`;
 const desc = text?.summary ?? `${c.name}の不動産相場を国土交通省の取引データから町名別に集計。土地・戸建・マンションの取引件数と価格・坪単価の中央値、四半期推移を毎月更新。仲介と当社買取の両方をご提案します。`;
 const crumbs = [{ name: 'トップ', href: '/' }, { name: `${c.name}の相場`, href: `/${c.key}/` }];
+// 内部リンク: 市名（「市・町」を除いた部分）がタイトルに入っている状況別ガイドへ市ページからリンクする
+const cityStem = c.name.replace(/[市町村]$/, '');
+const cityGuides = (await getCollection('guide'))
+  .filter((g) => g.data.reviewed && g.data.title.includes(cityStem))
+  .sort((a, b) => a.data.order - b.data.order);
 ---
 <Base title={title} description={desc} path={`/${c.key}/`} jsonLd={[breadcrumbLd(crumbs)]}>
   <Breadcrumb items={crumbs} />
@@ -34,6 +40,15 @@ const crumbs = [{ name: 'トップ', href: '/' }, { name: `${c.name}の相場`, 
       <h2>{c.name}の相場の見方</h2>
       {text.paragraphs.map((p) => <p>{p}</p>)}
     </section>
+  )}
+
+  {cityGuides.length > 0 && (
+    <>
+      <p class="small muted" style="margin-top:20px">{c.name}の売却に関するガイド</p>
+      <ul class="small">
+        {cityGuides.map((g) => <li><a href={`/guide/${g.id}/`}>{g.data.title}</a></li>)}
+      </ul>
+    </>
   )}
 
   <h2 id="towns">町名別の相場ページ（{pages.length}町名）</h2>
