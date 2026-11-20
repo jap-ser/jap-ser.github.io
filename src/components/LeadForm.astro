@@ -15,7 +15,7 @@ const STATUS = ['空き家になっている', '相続した・相続予定', '�
 const AGE = ['わからない・該当なし', '10年未満', '10〜20年', '20〜30年', '30〜40年', '40〜50年', '50年以上'];
 const WHEN = ['未定', '年内（12月まで）', '3か月以内', '半年以内', '1年以内'];
 ---
-<div class="lead-form" id={uid} data-endpoint={FORM.endpoint} data-line={COMPANY.line}>
+<div class="lead-form" id={uid} data-endpoint={FORM.endpoint} data-line={COMPANY.line} data-variant={variant}>
   <div class="lf-head"><b>{title}</b><span>入力1分。しつこい営業はしません</span></div>
   <form class="lf-body" novalidate>
     <input type="text" name="website" class="lf-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
@@ -110,6 +110,17 @@ const WHEN = ['未定', '年内（12月まで）', '3か月以内', '半年以�
 </style>
 
 <script>
+  // 入力欄ごとの計測（2026-11-19 康太さん承認「11/16の提案2」）。どの欄まで入力したかを GA4 のイベント名で残す
+  // 例: form_field_type（物件の種類を選んだ）。入力した値は送らず、欄の種類だけを1ページ1欄1回送る。見た目と送信処理は変えない
+  // place は line_click と同じ登録済みパラメータ（hero=トップ最初の画面 / cta-grid=ページ下の相談枠 / contact=相談ページ）
+  const FIELD_EVENT: Record<string, string> = {
+    種別: 'type', 市区町村: 'city', 住所: 'address', 状況: 'status', 築年数: 'age', ご希望: 'wish',
+    時期: 'when', お名前: 'name', 電話: 'tel', メール: 'email', 連絡方法: 'contact', 備考: 'note',
+  };
+  function track(name: string, params: Record<string, string>) {
+    try { (window as any).gtag?.('event', name, { page: location.pathname, ...params }); } catch {}
+  }
+
   // 全フォーム共通の送信処理（Astroはこのscriptをページ内で1回だけ実行する）
   const forms = document.querySelectorAll<HTMLElement>('.lead-form');
   forms.forEach((wrap) => {
@@ -117,17 +128,24 @@ const WHEN = ['未定', '年内（12月まで）', '3か月以内', '半年以�
     const endpoint = wrap.dataset.endpoint || '';
     const line = wrap.dataset.line || '';
     const done = wrap.querySelector<HTMLElement>('.lf-done')!;
+    const place = wrap.closest('.hero') ? 'hero' : wrap.closest('.cta-grid') ? 'cta-grid' : wrap.dataset.variant === 'full' ? 'contact' : 'body';
+    let invalidSent = false;
     form.addEventListener('submit', async (ev) => {
       ev.preventDefault();
       let ok = true;
+      const missing: string[] = [];
       form.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[required]').forEach((el) => {
         const bad = !el.value.trim();
         el.closest('.lf-field')?.classList.toggle('invalid', bad);
-        if (bad) ok = false;
+        if (bad) { ok = false; missing.push(FIELD_EVENT[el.name] || el.name); }
       });
       const err = form.querySelector<HTMLElement>('.lf-err')!;
       err.hidden = ok;
-      if (!ok) return;
+      if (!ok) {
+        // 必須欄が空のまま送信ボタンを押した（1ページ1回だけ記録。missing=空だった欄）
+        if (!invalidSent) { invalidSent = true; track('form_invalid', { place, missing: missing.join(',') }); }
+        return;
+      }
       const fd = new FormData(form);
       if (String(fd.get('website') || '')) { showDone(true, []); return; } // スパム（隠し欄に入力）
       const keys = ['種別', '市区町村', '住所', '状況', '築年数', 'ご希望', '時期', 'お名前', '電話', 'メール', '連絡方法', '備考'];
@@ -166,5 +184,16 @@ const WHEN = ['未定', '年内（12月まで）', '3か月以内', '半年以�
       }
       done.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
+    // 欄に値が入った時点で1回だけ記録（文字の欄は入力して次の欄へ移ったとき、選ぶ欄は選んだとき）
+    try {
+      const filled = new Set<string>();
+      form.addEventListener('change', (ev) => {
+        const el = ev.target as HTMLInputElement | null;
+        const key = el ? FIELD_EVENT[el.name] : '';
+        if (!el || !key || filled.has(key) || !String(el.value || '').trim()) return;
+        filled.add(key);
+        track(`form_field_${key}`, { place });
+      });
+    } catch {}
   });
 </script>
